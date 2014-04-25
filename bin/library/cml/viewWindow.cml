@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cml tuio="false" simulator="false" css="library/assets/styles.css">
+	
+	<Container id="viewWindow" visible="false" width="796" height="566" mouseChildren="true">
+		<!-- <Gesture ref="n-rotate"/> -->
+		<Gesture ref="n-drag"/>
+		
+		<!-- magnifier -->
+		<Magnifier radius="180" visible="true" magnification="2" distortionRadius="0" graphic="none"/>
+		
+		<!-- main viewing window -->
+		<Image width="796" height="566" x="-398" y="-283" visible="true" src="library/assets/viewWindow/ViewWindow.png"></Image>
+		
+		<!-- touchable objects around viewing window -->
+		<Image id="option1left" width="176" height="181" x="-350" y="-251" visible="true" mouseChildren="false" src="library/assets/viewWindow/option1left.png">
+			<Gesture ref="n-tap"/>
+		</Image>
+		<Image id="option2left" width="127" height="177" x="-360" y="-84" visible="true" mouseChildren="false" src="library/assets/viewWindow/option2left.png">
+			<Gesture ref="n-tap"/>
+		</Image>
+		<Image id="option3left" width="172" height="188" x="-338" y="69" visible="true" mouseChildren="false" src="library/assets/viewWindow/option3left.png">
+			<Gesture ref="n-tap"/>
+		</Image>
+		<Image id="option1right" width="170" height="187" x="169" y="-257" visible="true" mouseChildren="false" src="library/assets/viewWindow/option1right.png">
+			<Gesture ref="n-tap"/>
+		</Image>
+		<Image id="option2right" width="129" height="176" x="227" y="-86" visible="true" mouseChildren="false" src="library/assets/viewWindow/option2right.png">
+			<Gesture ref="n-tap"/>
+		</Image>
+		<Image id="option3right" width="176" height="181" x="158" y="69" visible="true" mouseChildren="false" src="library/assets/viewWindow/option3right.png">
+			<Gesture ref="n-tap"/>
+		</Image>
+		
+    </Container>
+	
+</cml>
