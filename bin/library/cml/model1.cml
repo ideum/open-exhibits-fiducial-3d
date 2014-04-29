@@ -3,15 +3,15 @@
 <cml>
 
 	<TouchContainer3D id="model1" mouseEnabled="true" mouseChildren="true" visible="true">
-		
-		<LightPicker id="lp-1" lights="light-1" />
+		<LightPicker id="lp-1" lights="light-1, light-2, light-3" />
 	
-		<Scene background="0xFFFFFF">
-			<Camera x="0" y="0" z="-1000" />
-		
-			<Light id="light-1" ref="Directional" color="0xFFFFFF" />	
+		<Scene  bgcolor="0xFFFFFF">
+			<Camera id="main_cam" x="0" y="0" z="-1000" color="0xCCCCCC"/>
+
+			<Light id="light-1" ref="Directional" x="-200" y="100" z="-200" color="0xFFFFFF" />
+			<Light id="light-2" ref="Directional" x="200" y="200" z="200"color="0xFFFFFF" />
+			<Light id="light-3" ref="Directional" x="-200" y="0" z="100"color="0xFFFFFF" />
 	
-			<PlaneGeometry width="1920" height="1080"></PlaneGeometry>
 			<Container3D id='container01'>
 				<Model id="engine1" src="library/assets/model/engine1/engine1.awd" lightPicker="lp-1" touchEnabled="true" pos="0,0,0" sca=".5,.5,.5">
 					<Gesture ref="n-drag-3d"/>
