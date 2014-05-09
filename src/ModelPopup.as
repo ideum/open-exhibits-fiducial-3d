@@ -1,7 +1,9 @@
 package {
 	
+	import com.gestureworks.cml.away3d.elements.TouchContainer3D;
 	import com.gestureworks.cml.core.CMLParser;
 	import com.gestureworks.cml.elements.Button;
+	import com.gestureworks.cml.elements.Container;
 	import com.gestureworks.cml.elements.TouchContainer;
 	import com.gestureworks.events.GWGestureEvent;
 	import com.gestureworks.events.GWTouchEvent;
@@ -58,8 +60,8 @@ package {
 			if (TweenMax.isTweening(this)) 
 				TweenMax.killTweensOf(this);
 			rotation = 0;
-			x = stage.stageWidth / 2 + 100;
-			y = stage.stageHeight / 2 - 100;			
+			//x = stage.stageWidth / 2 + 100;
+			//y = stage.stageHeight / 2 - 100;			
 			alpha = 0;			
 			visible = true;
 			TweenMax.to(this, .25, { alpha:1 } );

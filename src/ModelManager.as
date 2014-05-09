@@ -2,22 +2,30 @@ package
 {
 	import away3d.cameras.Camera3D;
 	import away3d.containers.ObjectContainer3D;
+	import away3d.containers.Scene3D;
+	import away3d.core.partition.SkyBoxNode;
+	import away3d.primitives.SkyBox;
+	import away3d.textures.BitmapTexture;
 	import com.adobe.air.crypto.EncryptionKeyGenerator;
 	import com.gestureworks.cml.away3d.elements.Camera;
 	import away3d.entities.Mesh;
 	import caurina.transitions.Tweener;	
 	import com.gestureworks.away3d.TouchManager3D;
+	import com.gestureworks.cml.away3d.elements.Container3D;
 	import com.gestureworks.cml.away3d.elements.Model;
+	import com.gestureworks.cml.away3d.elements.Scene;
 	import com.gestureworks.cml.away3d.elements.TouchContainer3D;
 	import com.gestureworks.cml.core.CMLAway3D;
 	import com.gestureworks.cml.core.CMLParser;
 	import com.gestureworks.cml.utils.document;
 	import com.gestureworks.core.GestureWorks;
+	import com.gestureworks.events.GWClusterEvent;
 	import com.gestureworks.events.GWGestureEvent;
 	import com.gestureworks.cml.elements.Image; 
 	import com.gestureworks.cml.elements.Text;
 	import com.gestureworks.cml.elements.Container;
 	import com.gestureworks.core.TouchSprite;
+	import flash.display.BitmapData;
 
 	import com.greensock.plugins.ShortRotationPlugin;
 	import com.greensock.plugins.TweenPlugin;
@@ -35,14 +43,15 @@ package
 	* ...
 	* @author John-Mark Collins	
 	* * */
-
+	
 	public class ModelManager extends Sprite 
 	{ 	
 		private var overlay:TouchSprite = new TouchSprite();
 		private var cam:Camera = new Camera();
+		//private var scene:Scene = new Scene();
 		
 		//private var model1:ObjectContainer3D;
-		private var model1:TouchContainer3D;
+		private var model_container:TouchContainer3D;
 		
 		private var main:ObjectContainer3D;
 		private var container1:ObjectContainer3D;
@@ -65,15 +74,6 @@ package
 		private var engine_nose:Model;
 		private var engine_tail:Model;
 		
-		private var shell1:Model;
-		private var shell2:Model;
-		private var shell3:Model;
-		private var shell4:Model;
-		private var shell5:Model;
-		private var shell6:Model;
-		private var shell7:Model;
-		private var shell8:Model;
-		
 		private var minScale:Number = .25;
 		private var maxScale:Number = 4;
 	
@@ -85,6 +85,12 @@ package
 	
 		//private var scene_3d:Scene3D = document.getElementById("main_scene");
 		private var popups:Array;
+		
+		// array of models for rotating each one independently
+		private var models:Array;
+		
+		// array of models for rotating each one independently
+		private var containers:Array;
 
 		// UI elements
 		private var point_dial = document.getElementById("point_dial");
@@ -102,6 +108,7 @@ package
 	
 		private var txt:Text = new Text();
 		private var secTimer:Timer = new Timer(1000, 1);
+		
 	
 		public function ModelManager() 
 		{
@@ -114,41 +121,47 @@ package
 			// Construct main screen and gesture enabling
 			
 			// get models
-			model1 = document.getElementById("model1");
+			model_container = document.getElementById("model_container");
 			//model2 = document.getElementById("model2");
-
+			
+			
+			/*var backgroundImg:BitmapData = new Sky().bitmapData;
+			scene = document.getElementById("main_scene");
+			scene.view.background = new BitmapTexture(backgroundImg);*/
+			
 			//Get Camera from scene
 			cam = document.getElementById("main_cam");
-			cam.x = -400;
+			/*cam.x = -400;
 			cam.y = 200;
 			cam.z = -300;	
-			cam.lookAt( new Vector3D(0, 0, 0) );
+			cam.lookAt( new Vector3D(0, 0, 0) );*/
 
 			// add touch overlay for fiducial gestures
 			stage.addChild(overlay);
 
 			// Add models to 3D scene 
-			overlay.addChild(model1);
+			overlay.addChild(model_container);
 			//overlay.addChild(model2);
 		
 			// add child gestures
-			overlay.mouseEnabled = true;
+			//overlay.mouseEnabled = true;
 			overlay.mouseChildren = true;
 			overlay.clusterBubbling = true;
 			
 			// add events 
 			overlay.gestureList = { "n-tap": true,
 									"n-rotate-3d": true,
-									"n-drag": true };
+									"n-drag": true, 
+									"n-scale-3d": true };
 
 			overlay.addChild(point_dial);
 			fadeInDial(false);
 	
-			overlay.addChild(viewWindow);
-			fadeInViewer(false);
+			//overlay.addChild(viewWindow);
+			//fadeInViewer(false);
 			
-			overlay.addChild(bar);
-			overlay.addChild(txt);
+			//overlay.addChild(bar);
+			//overlay.addChild(txt);
 		
 			main = document.getElementById("main");
 			container1 = document.getElementById("container01");
@@ -165,93 +178,79 @@ package
 			container12 = document.getElementById("container12");
 			container13 = document.getElementById("container13");
 			
-			shell1 = document.getElementById("back_shell_left");
-			shell2 = document.getElementById("back_shell_right");
-			shell3 = document.getElementById("central_shell_right");
-			shell4 = document.getElementById("central_shell_left");
-			shell5 = document.getElementById("inner_shell_left");
-			shell6 = document.getElementById("inner_shell_right");
-			shell7 = document.getElementById("outer_shell_left");
-			shell8 = document.getElementById("outer_shell_right");
-			
 			engine = document.getElementById("engine");
 			/*rod = document.getElementById("rod");
 			rotor1 = document.getElementById("rotor1");
 			engine_nose = document.getElementById("engine_nose");
 			engine_tail = document.getElementById("engine_tail");*/
 				
+			// grab all of the cml popup elements
 			popups = document.getElementsByTagName(ModelPopup);
-
+			
+			// grab all of the cml model elements
+			models = document.getElementsByTagName(Model);
+			
+			// grab all of the 3D container elements
+			containers = document.getElementsByTagName(ObjectContainer3D);
+			
 			document.getElementById("back_shell_left").vto.addEventListener(GWGestureEvent.DRAG, onModelDrag);
-			document.getElementById("back_shell_left").vto.addEventListener(GWGestureEvent.SCALE, onModelScale);
-			//document.getElementById("back_shell_left").vto.addEventListener(GWGestureEvent.ROTATE, onModelRotate);
+			document.getElementById("back_shell_left").vto.addEventListener(GWGestureEvent.SCALE, onScale);
 			
 			document.getElementById("back_shell_right").vto.addEventListener(GWGestureEvent.DRAG, onModelDrag);
-			document.getElementById("back_shell_right").vto.addEventListener(GWGestureEvent.SCALE, onModelScale);
-			//document.getElementById("back_shell_right").vto.addEventListener(GWGestureEvent.ROTATE, onModelRotate);
-		
-			document.getElementById("central_shell_right").vto.addEventListener(GWGestureEvent.DRAG, onModelDrag);
-			document.getElementById("central_shell_right").vto.addEventListener(GWGestureEvent.SCALE, onModelScale);
-			//document.getElementById("central_shell_right").vto.addEventListener(GWGestureEvent.ROTATE, onModelRotate);
+			document.getElementById("back_shell_right").vto.addEventListener(GWGestureEvent.SCALE, onScale);
 			
 			document.getElementById("central_shell_left").vto.addEventListener(GWGestureEvent.DRAG, onModelDrag);
-			document.getElementById("central_shell_left").vto.addEventListener(GWGestureEvent.SCALE, onModelScale);
-			//document.getElementById("central_shell_left").vto.addEventListener(GWGestureEvent.ROTATE, onModelRotate);
+			document.getElementById("central_shell_left").vto.addEventListener(GWGestureEvent.SCALE, onScale);
+			
+			document.getElementById("central_shell_right").vto.addEventListener(GWGestureEvent.DRAG, onModelDrag);
+			document.getElementById("central_shell_right").vto.addEventListener(GWGestureEvent.SCALE, onScale);
 			
 			document.getElementById("inner_shell_left").vto.addEventListener(GWGestureEvent.DRAG, onModelDrag);
-			document.getElementById("inner_shell_left").vto.addEventListener(GWGestureEvent.SCALE, onModelScale);
-			//document.getElementById("inner_shell_left").vto.addEventListener(GWGestureEvent.ROTATE, onModelRotate);
+			document.getElementById("inner_shell_left").vto.addEventListener(GWGestureEvent.SCALE, onScale);
 		
 			document.getElementById("inner_shell_right").vto.addEventListener(GWGestureEvent.DRAG, onModelDrag);
-			document.getElementById("inner_shell_right").vto.addEventListener(GWGestureEvent.SCALE, onModelScale);
-			//document.getElementById("inner_shell_right").vto.addEventListener(GWGestureEvent.ROTATE, onModelRotate);
+			document.getElementById("inner_shell_right").vto.addEventListener(GWGestureEvent.SCALE, onScale);
 			
 			document.getElementById("outer_shell_left").vto.addEventListener(GWGestureEvent.DRAG, onModelDrag);
-			document.getElementById("outer_shell_left").vto.addEventListener(GWGestureEvent.SCALE, onModelScale);
-			//document.getElementById("outer_shell_left").vto.addEventListener(GWGestureEvent.ROTATE, onModelRotate);
-			
+			document.getElementById("outer_shell_left").vto.addEventListener(GWGestureEvent.SCALE, onScale);
+
 			document.getElementById("outer_shell_right").vto.addEventListener(GWGestureEvent.DRAG, onModelDrag);
-			document.getElementById("outer_shell_right").vto.addEventListener(GWGestureEvent.SCALE, onModelScale);
-			//document.getElementById("outer_shell_right").vto.addEventListener(GWGestureEvent.ROTATE, onModelRotate);
-		
+			document.getElementById("outer_shell_right").vto.addEventListener(GWGestureEvent.SCALE, onScale);
+	
 			document.getElementById("engine").vto.addEventListener(GWGestureEvent.DRAG, onModelDrag);
-			document.getElementById("engine").vto.addEventListener(GWGestureEvent.SCALE, onModelScale);
-			//document.getElementById("internal_engine").vto.addEventListener(GWGestureEvent.ROTATE, onModelRotate);
+			document.getElementById("engine").vto.addEventListener(GWGestureEvent.SCALE, onScale);
 			
 			document.getElementById("engine_nose").vto.addEventListener(GWGestureEvent.DRAG, onModelDrag);
-			document.getElementById("engine_nose").vto.addEventListener(GWGestureEvent.SCALE, onModelScale);
-			//document.getElementById("engine_nose").vto.addEventListener(GWGestureEvent.ROTATE, onModelRotate);
+			document.getElementById("engine_nose").vto.addEventListener(GWGestureEvent.SCALE, onScale);
 			
 			document.getElementById("engine_tail").vto.addEventListener(GWGestureEvent.DRAG, onModelDrag);
-			document.getElementById("engine_tail").vto.addEventListener(GWGestureEvent.SCALE, onModelScale);
-			//document.getElementById("engine_tail").vto.addEventListener(GWGestureEvent.ROTATE, onModelRotate);
+			document.getElementById("engine_tail").vto.addEventListener(GWGestureEvent.SCALE, onScale);
 			
 			document.getElementById("rod").vto.addEventListener(GWGestureEvent.DRAG, onModelDrag);
-			document.getElementById("rod").vto.addEventListener(GWGestureEvent.SCALE, onModelScale);
-			//document.getElementById("rod").vto.addEventListener(GWGestureEvent.ROTATE, onModelRotate);
+			document.getElementById("rod").vto.addEventListener(GWGestureEvent.SCALE, onScale);
 			
 			document.getElementById("rotor1").vto.addEventListener(GWGestureEvent.DRAG, onModelDrag);
-			document.getElementById("rotor1").vto.addEventListener(GWGestureEvent.SCALE, onModelScale);
-			//document.getElementById("rotor1").vto.addEventListener(GWGestureEvent.ROTATE, onModelRotate);
+			document.getElementById("rotor1").vto.addEventListener(GWGestureEvent.SCALE, onScale);
 				
-			/*document.getElementById("hotspot01").vto.addEventListener(GWGestureEvent.TAP, onHotspotTap);
-			document.getElementById("hotspot02").vto.addEventListener(GWGestureEvent.TAP, onHotspotTap);
-			document.getElementById("hotspot03").vto.addEventListener(GWGestureEvent.TAP, onHotspotTap);*/
+			document.getElementById("outer_shell_right").vto.addEventListener(GWGestureEvent.TAP, onHotspotTap);
+			document.getElementById("outer_shell_left").vto.addEventListener(GWGestureEvent.TAP, onHotspotTap);
+			//document.getElementById("hotspot03").vto.addEventListener(GWGestureEvent.TAP, onHotspotTap);*/
 			
 			//mainScreen.addEventListener(GWGestureEvent.TAP, onTap);
 			overlay.addEventListener(GWGestureEvent.ROTATE, onRotate);
 			overlay.addEventListener(GWGestureEvent.DRAG, onDrag);
+			overlay.addEventListener(GWGestureEvent.SCALE, onScale);
 			
 			// listeners for viewer options
 			//document.getElementById("viewWindow").addEventListener(GWGestureEvent.HOLD, onViewerHold);
 			//document.getElementById("viewWindow").addEventListener(GWGestureEvent.ROTATE, onViewerRotate);
 			//document.getElementById("viewWindow").addEventListener(GWGestureEvent.DRAG, onViewerDrag);
 			
-			document.getElementById("option1left").addEventListener(GWGestureEvent.TAP, onLeftOption1Tap);
-			document.getElementById("option2left").addEventListener(GWGestureEvent.TAP, onLeftOption2Tap);
-			document.getElementById("option3left").addEventListener(GWGestureEvent.TAP, onLeftOption3Tap);
-			document.getElementById("option1right").addEventListener(GWGestureEvent.TAP, onRightOption1Tap);
-			document.getElementById("option2right").addEventListener(GWGestureEvent.TAP, onRightOption2Tap);
+			//document.getElementById("option1left").addEventListener(GWGestureEvent.TAP, onLeftOption1Tap);
+			//document.getElementById("option2left").addEventListener(GWGestureEvent.TAP, onLeftOption2Tap);
+			//document.getElementById("option3left").addEventListener(GWGestureEvent.TAP, onLeftOption3Tap);
+			//document.getElementById("option1right").addEventListener(GWGestureEvent.TAP, onRightOption1Tap);
+			//document.getElementById("option2right").addEventListener(GWGestureEvent.TAP, onRightOption2Tap);
 			//document.getElementById("option3right").addEventListener(GWGestureEvent.TAP, onRightOption3Tap);
 			//document.getElementById("test").addEventListener(GWGestureEvent.TAP, onTap2);
 			
@@ -273,22 +272,27 @@ package
 			info_screen.alpha = 0;
 			overlay.addChild(info_overlay);
 		}
-	
+		
 		private function onModelDrag(e:GWGestureEvent):void 
 		{
-			var val:Number = main.rotationX + e.value.drag_dy * .25;
+			var current_model:Model = document.getElementById(e.target.id);
+			var current_container:ObjectContainer3D = current_model.parent;
 			
-			if (val < minRotationX) val = minRotationX;
-			else if (val > maxRotationX) val = maxRotationX;
+			if (e.value.n == 1)
+			{
+			  var val:Number = current_container.rotationX + e.value.drag_dy * .25;
+			
+			  if (val < minRotationX) val = minRotationX;
+			  else if (val > maxRotationX) val = maxRotationX;
 				
-			main.rotationY -= e.value.drag_dx * .5;
-			main.rotationX = val;
+			  current_container.rotationY -= e.value.drag_dx * .5;
+			  current_container.rotationX = val;
+			}
 		}
-
+		
 		private function onModelScale(e:GWGestureEvent):void 
 		{
 			var val:Number = main.scaleX + e.value.scale_dsx * .75;
-			
 			if (val < minScale) val = minScale;
 			else if (val > maxScale)val = maxScale;
 				
@@ -299,8 +303,7 @@ package
 		
 		private function onRotate(e:GWGestureEvent):void 
 		{
-			trace("actually doing something...");
-			if (e.value.n == 5)
+			if (e.value.n == 8)
 			{
 				var fastest_displacement:Number = e.value.rotate_dthetaZ * 5;
 				var fast_displacement:Number = e.value.rotate_dthetaZ * 4;
@@ -308,10 +311,6 @@ package
 				var slowest_displacement:Number = e.value.rotate_dthetaZ * 1;
 				var curr_position:Vector3D = main.scenePosition;
 
-				//trace("initial position: " + curr_position);
-				trace("rotating: " + slow_displacement);
-			
-				trace("expanding out");
 				container1.moveForward(slowest_displacement);
 				container2.moveBackward(slowest_displacement);
 				container3.moveForward(slow_displacement);	
@@ -326,11 +325,15 @@ package
 				container12.moveRight(slow_displacement);	
 				container13.moveLeft(slow_displacement);
 				
+				if (e.value.rotate_dthetaZ < -10.0)
+				{
+					reOrderContainers();
+				}
+				
 				/*container5.moveRight(fast_displacement);
 				container6.moveRight(slow_displacement);
 				container7.moveLeft(fast_displacement);
 				container8.moveRight(fast_displacement);*/
-				
 				
 				// Check shell container position, so that everything combines back 
 				// to the initial starting point and not beyond
@@ -419,7 +422,6 @@ package
 				final_position = container3.x;
 				trace("final position of 3: " + final_position);*/
 
-
 				var x:int = e.value.localX;
 				var y:int = e.value.localY;
 				point_dial.x = x;
@@ -431,190 +433,32 @@ package
 			}
 			else fadeInDial(false);
 		}
-
-		private function onHotspotTap(e:GWGestureEvent):void 
-		{
-			trace("model tap", e.target.vto.x, e.target.vto.y, e.target.z);
-
-			var popup:ModelPopup = document.getElementById(e.target.vto.name);
-			for (var i:int = 0; i < popups.length; i++) 
-			{
-				if (popups[i].visible && popups[i] != popup) 
-				{
-					popups[i].tweenOut();
-				}
-			}
-			if (!popup.visible) popup.tweenIn();
-			else popup.tweenOut();	
-		}
 		
-		private function timerFunction(event:Event = null):void
-		{
-			overlay.removeChild(info_screen);
-		}
-		
-		
-		private function onInfoTap(event:GWGestureEvent):void
-		{
-			info_screen.alpha = 0;
-			overlay.addChild(info_screen);
-			if (info_screen.visible == false) info_screen.visible = true;
-			fadeInInfoScreen(true);
-		}
-			
-		private function onInfoTapExit(event:GWGestureEvent):void
-		{
-			fadeInInfoScreen(false);
-			secTimer.start();
-		}
-			
-		private function onLeftOption1Tap(event:GWGestureEvent):void
-		{
-			if (event.value.n == 1 && barState == 4)
-			{
-				trace("city screen");
-			}
-				
-			if (event.value.n == 1 && barState == 3)
-			{
-				trace("city screen");
-			}
-		}
-			
-		private function onLeftOption2Tap(event:GWGestureEvent):void
-		{
-			if (event.value.n == 1 && barState == 4)
-			{
-				trace("subway screen");
-			}
-				
-			if (event.value.n == 1 && barState == 3)
-			{
-				trace("subway screen");
-			}
-		}
-		
-		private function onLeftOption3Tap(event:GWGestureEvent):void
-		{
-			if (event.value.n == 1 && barState == 4)
-			{
-				trace("historical screen");
-			}
-				
-			if (event.value.n == 1 && barState == 3)
-			{
-				trace("historical screen");
-			}
-		}
-		
-		private function onRightOption1Tap(event:GWGestureEvent):void
-		{
-			if (event.value.n == 1 && barState == 3)
-			{
-				trace("bikes screen");
-			}
-		}
-			
-		private function onRightOption2Tap(event:GWGestureEvent):void
-		{
-			if (event.value.n == 1 && barState == 3)
-			{
-				trace("roads screen");
-			}
-		}
-			
-		private function onRightOption3Tap(event:GWGestureEvent):void
-		{
-			if (event.value.n == 1)
-			{
-				trace("undetermined screen");
-			}
-		}
-			
-		private function onViewerHold(event:GWGestureEvent):void
-		{
-			if (event.value.n == 3)
-			{
-				//fadeInViewer(true);
-				var x:int = event.value.localX;
-				var y:int = event.value.localY;
-				viewWindow.x = x;
-				viewWindow.y = y;
-			}
-			else 
-			{
-				fadeInViewer(false);
-			}
-		}
-			
-		private function onViewerDrag(event:GWGestureEvent):void
-		{
-			if (event.value.n == 3)
-			{
-				//fadeInViewer(true);
-				var x:int = event.value.localX;
-				var y:int = event.value.localY;
-				viewWindow.x = x;
-				viewWindow.y = y;
-			}
-			else 
-			{
-				fadeInViewer(false);
-			}
-		}
-			
-		private function onViewerRotate(event:GWGestureEvent):void
-		{
-			if (event.value.n == 3)
-			{
-				//trace("viewer rotate");
-			}
-		}
-			
-		/*function onTap(event:GWGestureEvent):void
-		{
-			if (event.value.n == 3)
-			{
-				if (viewWindow.visible == false) viewWindow.visible = "true";
-				var x:int = event.value.localX;
-				var y:int = event.value.localY;
-				viewWindow.x = x;
-				viewWindow.y = y;
-				fadeInViewer(true);
-			}
-			else fadeInViewer(false);
-				
-			if (event.value.n == 4)
-			{
-				animateBar(true);
-			}
-			else animateBar(false);
-				
-			if (event.value.n == 2)
-			{
-				var x:int = event.value.localX;
-				var y:int = event.value.localY;
-				point_dial.x = x;
-				point_dial.y = y;
-				fadeInDial(true);
-			}
-			else fadeInDial(false);
-		}*/
-			
 		private function onDrag(event:GWGestureEvent):void
 		{
-			/*if (event.value.n == 3)
+			if (event.value.n == 3)
 			{
-				if (viewWindow.visible == false) viewWindow.visible = "true";
-				var x:int = event.value.localX;				
-				var y:int = event.value.localY;
-				viewWindow.x = x;
-				viewWindow.y = y;
-				fadeInViewer(true);
-			}
-			else fadeInViewer(false);*/
+				var val:Number = main.rotationX + event.value.drag_dy * .25;
+			
+				if (val < minRotationX) val = minRotationX;
+				else if (val > maxRotationX) val = maxRotationX;
 				
-			if (event.value.n == 4)
+				main.rotationY -= event.value.drag_dx * .5;
+				main.rotationX = val;
+			}
+			
+			if (event.value.n == 5)
+			{
+				var val:Number = cam.rotationX + event.value.drag_dy * .25;
+			
+				if (val < minRotationX) val = minRotationX;
+				else if (val > maxRotationX) val = maxRotationX;
+				
+				cam.rotationY -= event.value.drag_dx * .5;
+				cam.rotationX = val;
+			}
+				
+			/*if (event.value.n == 4)
 			{
 				animateBar(true);
 				var dx:int = event.value.drag_dx as int;
@@ -665,8 +509,60 @@ package
 						}
 					}
 				}				
+			}*/
+			//else animateBar(false);
+		}
+		
+		private function onScale(e:GWGestureEvent):void
+		{
+			var val:Number = main.scaleX + e.value.scale_dsx * .75;
+			
+			if (val < minScale) val = minScale;
+			else if (val > maxScale)val = maxScale;
+			trace("Scaling: " + val);
+			main.scaleX = val;
+			main.scaleY = val;
+			main.scaleZ = val;
+		}
+
+		private function onHotspotTap(e:GWGestureEvent):void 
+		{
+			var popup:ModelPopup = document.getElementById(e.target.vto.name);
+			for (var i:int = 0; i < popups.length; i++) 
+			{
+				if (popups[i].visible && popups[i] != popup) 
+				{
+					popups[i].tweenOut();
+				}
 			}
-			else animateBar(false);
+			if (!popup.visible) 
+			{
+				//Center the popup on the finger tap
+				popup.x = this.mouseX - popup.width/2;
+				popup.y = this.mouseY - popup.height / 2;
+				popup.tweenIn(); 
+			}
+			else popup.tweenOut();	
+		}
+		
+		private function timerFunction(event:Event = null):void
+		{
+			overlay.removeChild(info_screen);
+		}
+		
+		
+		private function onInfoTap(event:GWGestureEvent):void
+		{
+			info_screen.alpha = 0;
+			overlay.addChild(info_screen);
+			if (info_screen.visible == false) info_screen.visible = true;
+			fadeInInfoScreen(true);
+		}
+			
+		private function onInfoTapExit(event:GWGestureEvent):void
+		{
+			fadeInInfoScreen(false);
+			secTimer.start();
 		}
 			
 		private function animateBar(on:Boolean):void
@@ -717,48 +613,29 @@ package
 			}
 		}
 				
-		private function map(num:Number, min1:Number, max1:Number, min2:Number, max2:Number, round:Boolean = false, constrainMin:Boolean = true, constrainMax:Boolean = true):Number			
+		
+		private function reOrderContainers():void
 		{
-			if (constrainMin && num < min1) return min2;
-			if (constrainMax && num > max1) return max2;
-	 
-			var num1:Number = (num - min1) / (max1 - min1);				
-			var num2:Number = (num1 * (max2 - min2)) + min2;
-			if (round) return Math.round(num2);
-			return num2;
-		}
+			//var popup:ModelPopup = document.getElementById(e.target.vto.name);
 			
-		private function clearOthers():void
-		{
-			if (barState == 4)
-			{
-				//nyc.visible = true;
-				//sf.visible = false;
-			}
-			if (barState == 3)
-			{
-				//nyc.visible = false;
-				//sf.visible = true;
-			}
-		}
 			
-		/*private function displayModel(state:int):void 
-		{				
-			if (state == 4)
+			// TODO: Issues with independent models rotating properly
+			for (var i:int = 0; i < containers.length; i++) 
 			{
-				overlay.getChildByName("model1").visible = true;
-				overlay.getChildByName("model2").visible = false;
-	
-				if (overlay.contains(model2)) overlay.removeChild(model2);
-				overlay.addChild(model1);
+				
+				if (containers[i].id != "main") 
+				{
+					trace("Container = " + containers[i].id  + ", z location = ", + containers[i].z);
+					TweenLite.to(containers[i], 3, { rotationX:0 } );
+					TweenLite.to(containers[i], 3, { rotationY:0 } );
+					TweenLite.to(containers[i], 3, { rotationZ:0 } );
+					TweenLite.to(containers[i], 3, { x:0 } );
+					TweenLite.to(containers[i], 3, { y:0 } );
+					
+					// Issue with z-axis re-orientation...
+					//TweenLite.to(containers[i], 1, { z:0 } );
+				}
 			}
-			else if (state == 3)
-			{
-				overlay.getChildByName("model1").visible = false;
-				overlay.getChildByName("model2").visible = true;
-				if (overlay.contains(model1)) overlay.removeChild(model1);
-				overlay.addChild(model2);
-			}
-		}*/
+		}	
 	}		
 }
