@@ -59,9 +59,7 @@ package {
 		public function tweenIn():void {
 			if (TweenMax.isTweening(this)) 
 				TweenMax.killTweensOf(this);
-			rotation = 0;
-			//x = stage.stageWidth / 2 + 100;
-			//y = stage.stageHeight / 2 - 100;			
+			rotation = 0;	
 			alpha = 0;			
 			visible = true;
 			TweenMax.to(this, .25, { alpha:1 } );

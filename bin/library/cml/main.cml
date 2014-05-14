@@ -10,7 +10,6 @@
 
 	<!-- 3D Models, Nodes and Containers -->
 	<Include src="library/cml/model1.cml"/>
-	<!-- <Include src="library/cml/model2.cml"/> -->
 	
 	<!-- Popup overlays for information -->
 	<Include src="library/cml/model-popups.cml"/>
@@ -18,14 +17,11 @@
 	<!-- Rotating Dial -->
 	<Include src="library/cml/point_dial.cml"/> 
 	
-	<!-- Draggable Bar -->
-	<Include src="library/cml/bar.cml"/> 
-	
-	<!-- View Window -->
-	<Include src="library/cml/viewWindow.cml"/> 
+	<!-- Directional Arrows -->
+	<Include src="library/cml/directionalArrows.cml"/> 
 
 	<!-- Info overlay -->
-	<Image id="info_overlay" width="128" height="128" x="1750" y="910" visible="true" src="library/assets/info/info_icon.png">
+	<Image id="info_overlay" width="128" height="128" x="1780" y="950" visible="true" src="library/assets/info/info_icon.png">
 		<Gesture ref="n-tap"/>
 	</Image>
 	
