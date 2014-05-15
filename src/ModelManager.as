@@ -91,7 +91,7 @@ package
 
 		// Elements for info screen 
 		private var info_overlay:Image = document.getElementById("info_overlay");
-		private var info_screen = document.getElementById("info_screen");
+		private var info_screen:Container = document.getElementById("info_screen");
 		private var info_screen_exit:Image = document.getElementById("info_screen_icon");
 		
 		// State of the UI element for rotating dial rotation degree
@@ -393,16 +393,20 @@ package
 					}
 				}
 				
-				explodeRadialModel(rotor1, fast_displacement);
-				explodeRadialModel(rotor2, fast_displacement);
-				explodeRadialModel(rotor3, fast_displacement);
-				explodeRadialModel(pipes, slow_displacement);
+				explodeRadialModelYZ(rotor1, fast_displacement);
+				explodeRadialModelYZ(rotor2, fast_displacement);
+				explodeRadialModelYZ(rotor3, fast_displacement);
+				explodeRadialModelYZ(pipes, slow_displacement);
 				
 				// re-orient the containers back to their original orientation
 				// negates viewer interaction and rotation
 				if (e.value.rotate_dthetaZ < -10.0)
 				{
 					reOrderContainers();
+					implodeRadialModelYZ(rotor1);
+					implodeRadialModelYZ(rotor2);
+					implodeRadialModelYZ(rotor3);
+					implodeRadialModelYZ(pipes);
 				}
 
 				// draw rotating dial animation
@@ -519,7 +523,8 @@ package
 		{
 			for (var i:int = 0; i < containers.length; i++) 
 			{
-				
+				// return all containers other than the camera, main model container and light 
+				// back to original starting coordinates
 				if (containers[i].id != "main" && containers[i].id != "main_cam" && containers[i].id != "light-1") 
 				{
 					trace("Container = " + containers[i].id  + ", z location = ", + containers[i].z);
@@ -533,7 +538,17 @@ package
 			}
 		}	
 		
-		private function explodeRadialModel(whole_model:Model, displacement:Number):void 
+		private function implodeRadialModelYZ(whole_model:Model):void 
+		{
+			for (var i:int = 0; i < whole_model.numChildren; i++) 
+			{
+				// return all radial elements to the center
+				TweenLite.to(whole_model.getChildAt(i), 3, { y:0 } );
+				TweenLite.to(whole_model.getChildAt(i), 3, { z:0 } );
+			}
+		}	
+		
+		private function explodeRadialModelYZ(whole_model:Model, displacement:Number):void 
 		{
 			// starting point of first radial element (at 180 for this demo)
 			// set the starting angle of your index[0] element
@@ -554,7 +569,7 @@ package
 			for (var i:int = 0; i < degree; i++) 
 			{
 				// swith to radians for cosine and sine calculations
-				var radianValue = radians(totalRotation);
+				var radianValue:Number = radians(totalRotation);
 				
 				newZ = (displacement * ((-1)*Math.cos(radianValue)));
 				newY = (displacement * Math.sin(radianValue));

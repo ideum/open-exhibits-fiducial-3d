@@ -1,12 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<cml tuio="false" simulator="false" css="library/assets/styles.css">
-
-	<LibraryKit>
-		<Library type="swf" src="library/assets/openexhibits_assets.swf" />
-	</LibraryKit>
-	
-	<StageKit fullscreen="true" />
-	
+<cml>
 	<Container id="point_dial" visible="false">
 		<Gesture ref="n-drag"/>
 		<Gesture ref="n-rotate"/>
