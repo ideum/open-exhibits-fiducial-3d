@@ -131,7 +131,6 @@ package
 									"n-rotate-3d": true,
 									"n-drag": true, 
 									"n-scale-3d": true };
-
 		
 			main = document.getElementById("main");
 			
@@ -143,6 +142,12 @@ package
 				
 			// grab all of the cml popup elements
 			popups = document.getElementsByTagName(ModelPopup);
+			
+			// Add popups to overlay as well
+			for (var i:int = 0; i < popups.length; i++)
+			{
+				overlay.addChild(popups[i]);
+			}
 			
 			// grab all of the cml model elements
 			models = document.getElementsByTagName(Model);
@@ -190,18 +195,21 @@ package
 			document.getElementById("small_shell_bottom").vto.addEventListener(GWGestureEvent.SCALE, onScale);
 			document.getElementById("small_shell_bottom").vto.addEventListener(GWGestureEvent.TAP, onHotspotTap);
 			
-// TO DO: Add all popup elements for each piece of the engine
 			document.getElementById("engine").vto.addEventListener(GWGestureEvent.DRAG, onModelDrag);
 			document.getElementById("engine").vto.addEventListener(GWGestureEvent.SCALE, onScale);
+			document.getElementById("engine").vto.addEventListener(GWGestureEvent.TAP, onHotspotTap);
 			
 			document.getElementById("engine_nose").vto.addEventListener(GWGestureEvent.DRAG, onModelDrag);
 			document.getElementById("engine_nose").vto.addEventListener(GWGestureEvent.SCALE, onScale);
+			document.getElementById("engine_nose").vto.addEventListener(GWGestureEvent.TAP, onHotspotTap);
 			
 			document.getElementById("engine_tail").vto.addEventListener(GWGestureEvent.DRAG, onModelDrag);
 			document.getElementById("engine_tail").vto.addEventListener(GWGestureEvent.SCALE, onScale);
+			document.getElementById("engine_tail").vto.addEventListener(GWGestureEvent.TAP, onHotspotTap);
 			
 			document.getElementById("rod").vto.addEventListener(GWGestureEvent.DRAG, onModelDrag);
 			document.getElementById("rod").vto.addEventListener(GWGestureEvent.SCALE, onScale);
+			document.getElementById("rod").vto.addEventListener(GWGestureEvent.TAP, onHotspotTap);
 			
 			document.getElementById("front_fan").vto.addEventListener(GWGestureEvent.DRAG, onModelDrag);
 			document.getElementById("front_fan").vto.addEventListener(GWGestureEvent.SCALE, onScale);
@@ -423,6 +431,7 @@ package
 		
 		private function onDrag(e:GWGestureEvent):void
 		{
+			var val:Number;
 			if (e.value.n == 3)
 			{
 				var x:int = e.value.localX;
@@ -431,7 +440,7 @@ package
 				directionalArrows.y = y;
 				fade(directionalArrows, "in");
 				
-				var val:Number = main.rotationX + e.value.drag_dy * .25;
+				val = main.rotationX + e.value.drag_dy * .25;
 			
 				if (val < minRotationX) val = minRotationX;
 				else if (val > maxRotationX) val = maxRotationX;
@@ -442,7 +451,7 @@ package
 			
 			if (e.value.n == 8)
 			{
-				var val:Number = cam.rotationX + e.value.drag_dy * .25;
+				val = cam.rotationX + e.value.drag_dy * .25;
 			
 				if (val < minRotationX) val = minRotationX;
 				else if (val > maxRotationX) val = maxRotationX;
