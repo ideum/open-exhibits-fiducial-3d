@@ -8,7 +8,7 @@
 
 		<Scene id="main_scene" bgcolor="0x3E5167">
 			<Camera id="main_cam" x="0" y="100" z="-500" color="0x3E5167"/>
-			<!-- <Camera id="main_cam" pos="0,0,-1000" lens="prospective" color="0x444444" /> -->
+			<!-- <Camera id="main_cam" pos="0,0,-1000" lens="orthographic" color="0x444444" /> -->
 			 
 			<SkyBox>
 			    <Image width="1024" src="library/assets/sky/background_2048_right_logo.png"/>
@@ -19,12 +19,16 @@
 				<Image width="1024" src="library/assets/sky/background_2048_back_logo.png"/>
 			</SkyBox>
 
-			<Light id="light-1" ref="Directional" color="0xFFFFFF" castsShadows="true" x="0" y="0" z="-1500" rotationX="0" shadowType="soft" />
+			<Light id="light-1" ref="Directional" color="0xFFFFFF" castsShadows="true" x="0" y="1000" z="0" shadowType="soft" />
+			
+			<!-- <Container3D id="floor">
+				<Model src="library/assets/model/floor.awd" lightPicker="lp-1" sca=".25, .25, .25"/>
+			</Container3D> -->
 			
 			<Container3D id="main">
 			
 				<Container3D id='container01'>
-					<Model id="back_shell_left" name="blank_placeholder" src="library/assets/model/back_shell_left/back_shell_left_red.awd" lightPicker="lp-1" touchEnabled="true" sca=".25, .25, .25">
+					<Model id="back_shell" name="bypass_ducts" src="library/assets/model/back_shell/back_shell.awd" lightPicker="lp-1" touchEnabled="true" sca=".25, .25, .25">
 						<Gesture ref="n-drag-3d"/>
 						<Gesture ref="n-scale-3d"/>
 						<Gesture ref="n-rotate-3d"/>
@@ -32,29 +36,9 @@
 						<Gesture ref="n-drag"/>
 					</Model>
 				</Container3D>
-		
-				<Container3D id="container02">
-					<Model id="back_shell_right" name="blank_placeholder" material="#mat-1" src="library/assets/model/back_shell_right/back_shell_right_red.awd" lightPicker="lp-1" touchEnabled="true" sca=".25, .25, .25">
-						<Gesture ref="n-drag-3d"/>
-						<Gesture ref="n-scale-3d"/>
-						<Gesture ref="n-rotate-3d"/>
-						<Gesture ref="n-tap"/>
-						<Gesture ref="n-drag"/>
-					</Model>
-				</Container3D>	
 			
 				<Container3D id="container03">
-					<Model id="central_shell_left" name="blank_placeholder" src="library/assets/model/central_shell_left/central_shell_left_blue.awd" lightPicker="lp-1" touchEnabled="true" sca=".25, .25, .25">
-						<Gesture ref="n-drag-3d"/>
-						<Gesture ref="n-scale-3d"/>
-						<Gesture ref="n-rotate-3d"/>
-						<Gesture ref="n-tap"/>
-						<Gesture ref="n-drag"/>
-					</Model>
-				</Container3D>
-				
-				<Container3D id="container04">
-					<Model id="central_shell_right" name="blank_placeholder" src="library/assets/model/central_shell_right/central_shell_right_blue.awd" lightPicker="lp-1" touchEnabled="true" sca=".25, .25, .25">
+					<Model id="central_shell" name="bypass_ducts" src="library/assets/model/central_shell/central_shell.awd" lightPicker="lp-1" touchEnabled="true" sca=".25, .25, .25">
 						<Gesture ref="n-drag-3d"/>
 						<Gesture ref="n-scale-3d"/>
 						<Gesture ref="n-rotate-3d"/>
@@ -64,17 +48,7 @@
 				</Container3D>
 				
 				<Container3D id="container05">
-					<Model id="inner_shell_left" name="blank_placeholder" src="library/assets/model/inner_shell_left/inner_shell_left.awd" lightPicker="lp-1" touchEnabled="true" sca=".25, .25, .25">
-						<Gesture ref="n-drag-3d"/>
-						<Gesture ref="n-scale-3d"/>
-						<Gesture ref="n-rotate-3d"/>
-						<Gesture ref="n-tap"/>
-						<Gesture ref="n-drag"/>
-					</Model>
-				</Container3D>
-				
-				<Container3D id="container06">
-					<Model id="inner_shell_right" name="blank_placeholder" src="library/assets/model/inner_shell_right/inner_shell_right.awd" lightPicker="lp-1" touchEnabled="true" sca=".25, .25, .25">
+					<Model id="inner_shell" name="bypass_ducts" src="library/assets/model/inner_shell/inner_shell.awd" lightPicker="lp-1" touchEnabled="true" sca=".25, .25, .25">
 						<Gesture ref="n-drag-3d"/>
 						<Gesture ref="n-scale-3d"/>
 						<Gesture ref="n-rotate-3d"/>
@@ -84,17 +58,7 @@
 				</Container3D>
 				
 				<Container3D id="container07">
-					<Model id="outer_shell_left" name="blank_placeholder" src="library/assets/model/outer_shell_left/outer_shell_left.awd" lightPicker="lp-1" touchEnabled="true" sca=".25, .25, .25">
-						<Gesture ref="n-drag-3d"/>
-						<Gesture ref="n-scale-3d"/>
-						<Gesture ref="n-rotate-3d"/>
-						<Gesture ref="n-tap"/>
-						<Gesture ref="n-drag"/>
-					</Model>
-				</Container3D>
-				
-				<Container3D id="container08">
-					<Model id="outer_shell_right" name="blank_placeholder" src="library/assets/model/outer_shell_right/outer_shell_right.awd" lightPicker="lp-1" touchEnabled="true" sca=".25, .25, .25">
+					<Model id="outer_shell" name="intake" src="library/assets/model/outer_shell/outer_shell.awd" lightPicker="lp-1" touchEnabled="true" sca=".25, .25, .25">
 						<Gesture ref="n-drag-3d"/>
 						<Gesture ref="n-scale-3d"/>
 						<Gesture ref="n-rotate-3d"/>
@@ -104,7 +68,7 @@
 				</Container3D>
 				
 				<Container3D id="container09">
-					<Model id="engine" name="blank_placeholder" src="library/assets/model/engine/engine.awd" lightPicker="lp-1" touchEnabled="true" sca=".25, .25, .25">
+					<Model id="compressor" name="Compressor" src="library/assets/model/engine/compressor.awd" lightPicker="lp-1" touchEnabled="true" sca=".25, .25, .25">
 						<Gesture ref="n-drag-3d"/>
 						<Gesture ref="n-scale-3d"/>
 						<Gesture ref="n-rotate-3d"/>
@@ -134,7 +98,7 @@
 				</Container3D>
 				
 				<Container3D id="container12">
-					<Model id="rod" name="blank_placeholder" src="library/assets/model/engine/chrome_rod.awd" lightPicker="lp-1" touchEnabled="true" sca=".25, .25, .25">
+					<Model id="rod" name="shaft" src="library/assets/model/engine/chrome_rod.awd" lightPicker="lp-1" touchEnabled="true" sca=".25, .25, .25">
 						<Gesture ref="n-drag-3d"/>
 						<Gesture ref="n-scale-3d"/>
 						<Gesture ref="n-rotate-3d"/>
@@ -159,7 +123,7 @@
 						<Gesture ref="n-tap"/>
 						<Gesture ref="n-drag"/>
 					</Model>
-					<Model id="back_fan" name="back_blank_placeholder" src="library/assets/model/back_fan/back_fan.awd" lightPicker="lp-1" touchEnabled="true" sca=".25, .25, .25">
+					<Model id="back_fan" name="blank_placeholder" src="library/assets/model/back_fan/back_fan.awd" lightPicker="lp-1" touchEnabled="true" sca=".25, .25, .25">
 						<Gesture ref="n-drag-3d"/>
 						<Gesture ref="n-rotate-3d"/>
 						<Gesture ref="n-tap"/>
@@ -168,7 +132,7 @@
 				</Container3D>
 				
 				<Container3D id="container15">
-					<Model id="pipes" name="blank_placeholder" src="library/assets/model/pipes/pipes.awd" lightPicker="lp-1" touchEnabled="true" sca=".25, .25, .25">
+					<Model id="pipes" name="flame_holder" src="library/assets/model/pipes/pipes.awd" lightPicker="lp-1" touchEnabled="true" sca=".25, .25, .25">
 						<Gesture ref="n-drag-3d"/>
 						<Gesture ref="n-rotate-3d"/>
 						<Gesture ref="n-tap"/>
@@ -177,16 +141,7 @@
 				</Container3D> 
 				
 				<Container3D id="container17">
-					<Model id="small_shell_top" name="blank_placeholder" src="library/assets/model/small_shell_top/small_shell_top.awd" lightPicker="lp-1" touchEnabled="true" sca=".25, .25, .25">
-						<Gesture ref="n-drag-3d"/>
-						<Gesture ref="n-rotate-3d"/>
-						<Gesture ref="n-tap"/>
-						<Gesture ref="n-drag"/>
-					</Model>
-				</Container3D>
-				
-				<Container3D id="container18">
-					<Model id="small_shell_bottom" name="blank_placeholder" src="library/assets/model/small_shell_bottom/small_shell_bottom.awd" lightPicker="lp-1" touchEnabled="true" sca=".25, .25, .25">
+					<Model id="combustion_chamber" name="combustor" src="library/assets/model/combustor/combustor.awd" lightPicker="lp-1" touchEnabled="true" sca=".25, .25, .25">
 						<Gesture ref="n-drag-3d"/>
 						<Gesture ref="n-rotate-3d"/>
 						<Gesture ref="n-tap"/>
@@ -195,7 +150,34 @@
 				</Container3D>
 				
 				<Container3D id="container19">
-					<Model id="front_fan" name="blank_placeholder" src="library/assets/model/front_fan/front_fan.awd" lightPicker="lp-1" touchEnabled="true" sca=".25, .25, .25">
+					<Model id="front_fan" name="fan" src="library/assets/model/front_fan/front_fan.awd" lightPicker="lp-1" touchEnabled="true" sca=".25, .25, .25">
+						<Gesture ref="n-drag-3d"/>
+						<Gesture ref="n-rotate-3d"/>
+						<Gesture ref="n-tap"/>
+						<Gesture ref="n-drag"/>
+					</Model>
+				</Container3D>
+				
+				<Container3D id="container20">
+					<Model id="turbine" name="LowPressureTurbine" src="library/assets/model/engine/turbine.awd" lightPicker="lp-1" touchEnabled="true" sca=".25, .25, .25">
+						<Gesture ref="n-drag-3d"/>
+						<Gesture ref="n-rotate-3d"/>
+						<Gesture ref="n-tap"/>
+						<Gesture ref="n-drag"/>
+					</Model>
+				</Container3D>
+				
+				<Container3D id="container21">
+					<Model id="high_pressure_turbine" name="HighPressureTurbine"  src="library/assets/model/engine/high_pressure_turbine.awd" lightPicker="lp-1" touchEnabled="true" sca=".25, .25, .25">
+						<Gesture ref="n-drag-3d"/>
+						<Gesture ref="n-rotate-3d"/>
+						<Gesture ref="n-tap"/>
+						<Gesture ref="n-drag"/>
+					</Model>
+				</Container3D>
+				
+				<Container3D id="container22">
+					<Model id="high_pressure_compressor"  name="HighPressureCompressor" src="library/assets/model/engine/high_pressure_compressor.awd" lightPicker="lp-1" touchEnabled="true" sca=".25, .25, .25">
 						<Gesture ref="n-drag-3d"/>
 						<Gesture ref="n-rotate-3d"/>
 						<Gesture ref="n-tap"/>

@@ -22,8 +22,9 @@ package
 			cml = "library/cml/main.cml";
 			gml = "library/gml/gestures.gml";
 			CMLParser.addEventListener(CMLParser.COMPLETE, cmlInit);
+			
 		}
-	
+
 		override protected function gestureworksInit():void
  		{
 			trace("gestureWorksInit()");			

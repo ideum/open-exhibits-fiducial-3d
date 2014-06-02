@@ -56,6 +56,10 @@ package
 		private var model_container:TouchContainer3D;
 		private var view:View3D;
 		
+		//scalable images for adjusting graphic size, based on fiducial size
+		private var rotationGraphic:Image;
+		private var translationGraphic:Image;
+		
 		private var main:ObjectContainer3D;
 
 		// specific models for complex radial transform operations
@@ -63,6 +67,11 @@ package
 		private var rotor2:Model;
 		private var rotor3:Model;
 		private var pipes:Model;
+		private var outerShell:Model;
+		private var backShell:Model;
+		private var centralShell:Model;
+		private var innerShell:Model;
+		private var combustionChamber:Model;
 		
 		private var minScale:Number = .25;
 		private var maxScale:Number = 4;
@@ -139,77 +148,54 @@ package
 			rotor2 = document.getElementById("central_fan");
 			rotor3 = document.getElementById("back_fan");
 			pipes = document.getElementById("pipes");
+			outerShell = document.getElementById("outer_shell");
+			backShell = document.getElementById("back_shell");
+			centralShell = document.getElementById("central_shell");
+			innerShell = document.getElementById("inner_shell");
+			combustionChamber = document.getElementById("combustion_chamber");
 				
 			// grab all of the cml popup elements
 			popups = document.getElementsByTagName(ModelPopup);
 			
+			// grab all of the cml popup elements
+			models = document.getElementsByTagName(Model);
+			
+			var i:int;
 			// Add popups to overlay as well
-			for (var i:int = 0; i < popups.length; i++)
+			for (i = 0; i < popups.length; i++)
 			{
 				overlay.addChild(popups[i]);
 			}
 			
-			// grab all of the cml model elements
-			models = document.getElementsByTagName(Model);
-			
 			// grab all of the 3D container elements
 			containers = document.getElementsByTagName(ObjectContainer3D);
 			
-			document.getElementById("back_shell_left").vto.addEventListener(GWGestureEvent.DRAG, onModelDrag);
-			document.getElementById("back_shell_left").vto.addEventListener(GWGestureEvent.SCALE, onScale);
-			document.getElementById("back_shell_left").vto.addEventListener(GWGestureEvent.TAP, onHotspotTap);
+			// graphics for fiducial objects
+			rotationGraphic = document.getElementById("rotation_graphic");
+			translationGraphic = document.getElementById("translation_graphic");
 			
-			document.getElementById("back_shell_right").vto.addEventListener(GWGestureEvent.DRAG, onModelDrag);
-			document.getElementById("back_shell_right").vto.addEventListener(GWGestureEvent.SCALE, onScale);
-			document.getElementById("back_shell_right").vto.addEventListener(GWGestureEvent.TAP, onHotspotTap);
+			for (i = 0; i < models.length; i++)
+			{
+				models[i].vto.addEventListener(GWGestureEvent.DRAG, onModelDrag);
+				models[i].vto.addEventListener(GWGestureEvent.SCALE, onScale);
+				models[i].vto.addEventListener(GWGestureEvent.TAP, onHotspotTap);
+			}
 			
-			document.getElementById("central_shell_left").vto.addEventListener(GWGestureEvent.DRAG, onModelDrag);
-			document.getElementById("central_shell_left").vto.addEventListener(GWGestureEvent.SCALE, onScale);
-			document.getElementById("central_shell_left").vto.addEventListener(GWGestureEvent.TAP, onHotspotTap);
-			
-			document.getElementById("central_shell_right").vto.addEventListener(GWGestureEvent.DRAG, onModelDrag);
-			document.getElementById("central_shell_right").vto.addEventListener(GWGestureEvent.SCALE, onScale);
-			document.getElementById("central_shell_right").vto.addEventListener(GWGestureEvent.TAP, onHotspotTap);
-			
-			document.getElementById("inner_shell_left").vto.addEventListener(GWGestureEvent.DRAG, onModelDrag);
-			document.getElementById("inner_shell_left").vto.addEventListener(GWGestureEvent.SCALE, onScale);
-			document.getElementById("inner_shell_left").vto.addEventListener(GWGestureEvent.TAP, onHotspotTap);
-		
-			document.getElementById("inner_shell_right").vto.addEventListener(GWGestureEvent.DRAG, onModelDrag);
-			document.getElementById("inner_shell_right").vto.addEventListener(GWGestureEvent.SCALE, onScale);
-			document.getElementById("inner_shell_right").vto.addEventListener(GWGestureEvent.TAP, onHotspotTap);
-			
-			document.getElementById("outer_shell_left").vto.addEventListener(GWGestureEvent.DRAG, onModelDrag);
-			document.getElementById("outer_shell_left").vto.addEventListener(GWGestureEvent.SCALE, onScale);
-			document.getElementById("outer_shell_left").vto.addEventListener(GWGestureEvent.TAP, onHotspotTap);
+			/*centralShell.vto.addEventListener(GWGestureEvent.DRAG, onModelDrag);
+			centralShell.vto.addEventListener(GWGestureEvent.SCALE, onScale);
+			centralShell.vto.addEventListener(GWGestureEvent.TAP, onHotspotTap);
 
-			document.getElementById("outer_shell_right").vto.addEventListener(GWGestureEvent.DRAG, onModelDrag);
-			document.getElementById("outer_shell_right").vto.addEventListener(GWGestureEvent.SCALE, onScale);
-			document.getElementById("outer_shell_right").vto.addEventListener(GWGestureEvent.TAP, onHotspotTap);
+			innerShell.vto.addEventListener(GWGestureEvent.DRAG, onModelDrag);
+			innerShell.vto.addEventListener(GWGestureEvent.SCALE, onScale);
+			innerShell.vto.addEventListener(GWGestureEvent.TAP, onHotspotTap);
+			
+			outerShell.vto.addEventListener(GWGestureEvent.DRAG, onModelDrag);
+			outerShell.vto.addEventListener(GWGestureEvent.SCALE, onScale);
+			outerShell.vto.addEventListener(GWGestureEvent.TAP, onHotspotTap);
 	
-			document.getElementById("small_shell_top").vto.addEventListener(GWGestureEvent.DRAG, onModelDrag);
-			document.getElementById("small_shell_top").vto.addEventListener(GWGestureEvent.SCALE, onScale);
-			document.getElementById("small_shell_top").vto.addEventListener(GWGestureEvent.TAP, onHotspotTap);
-
-			document.getElementById("small_shell_bottom").vto.addEventListener(GWGestureEvent.DRAG, onModelDrag);
-			document.getElementById("small_shell_bottom").vto.addEventListener(GWGestureEvent.SCALE, onScale);
-			document.getElementById("small_shell_bottom").vto.addEventListener(GWGestureEvent.TAP, onHotspotTap);
-			
-			document.getElementById("engine").vto.addEventListener(GWGestureEvent.DRAG, onModelDrag);
-			document.getElementById("engine").vto.addEventListener(GWGestureEvent.SCALE, onScale);
-			document.getElementById("engine").vto.addEventListener(GWGestureEvent.TAP, onHotspotTap);
-			
-			document.getElementById("engine_nose").vto.addEventListener(GWGestureEvent.DRAG, onModelDrag);
-			document.getElementById("engine_nose").vto.addEventListener(GWGestureEvent.SCALE, onScale);
-			document.getElementById("engine_nose").vto.addEventListener(GWGestureEvent.TAP, onHotspotTap);
-			
-			document.getElementById("engine_tail").vto.addEventListener(GWGestureEvent.DRAG, onModelDrag);
-			document.getElementById("engine_tail").vto.addEventListener(GWGestureEvent.SCALE, onScale);
-			document.getElementById("engine_tail").vto.addEventListener(GWGestureEvent.TAP, onHotspotTap);
-			
-			document.getElementById("rod").vto.addEventListener(GWGestureEvent.DRAG, onModelDrag);
-			document.getElementById("rod").vto.addEventListener(GWGestureEvent.SCALE, onScale);
-			document.getElementById("rod").vto.addEventListener(GWGestureEvent.TAP, onHotspotTap);
+			combustionChamber.vto.addEventListener(GWGestureEvent.DRAG, onModelDrag);
+			combustionChamber.vto.addEventListener(GWGestureEvent.SCALE, onScale);
+			combustionChamber.vto.addEventListener(GWGestureEvent.TAP, onHotspotTap);
 			
 			document.getElementById("front_fan").vto.addEventListener(GWGestureEvent.DRAG, onModelDrag);
 			document.getElementById("front_fan").vto.addEventListener(GWGestureEvent.SCALE, onScale);
@@ -230,6 +216,22 @@ package
 			document.getElementById("pipes").vto.addEventListener(GWGestureEvent.DRAG, onModelDrag);
 			document.getElementById("pipes").vto.addEventListener(GWGestureEvent.SCALE, onScale);
 			document.getElementById("pipes").vto.addEventListener(GWGestureEvent.TAP, onHotspotTap);
+			
+			document.getElementById("compressor").vto.addEventListener(GWGestureEvent.DRAG, onModelDrag);
+			document.getElementById("compressor").vto.addEventListener(GWGestureEvent.SCALE, onScale);
+			document.getElementById("compressor").vto.addEventListener(GWGestureEvent.TAP, onHotspotTap);
+			
+			document.getElementById("high_pressure_compressor").vto.addEventListener(GWGestureEvent.DRAG, onModelDrag);
+			document.getElementById("high_pressure_compressor").vto.addEventListener(GWGestureEvent.SCALE, onScale);
+			document.getElementById("high_pressure_compressor").vto.addEventListener(GWGestureEvent.TAP, onHotspotTap);
+			
+			document.getElementById("turbine").vto.addEventListener(GWGestureEvent.DRAG, onModelDrag);
+			document.getElementById("turbine").vto.addEventListener(GWGestureEvent.SCALE, onScale);
+			document.getElementById("turbine").vto.addEventListener(GWGestureEvent.TAP, onHotspotTap);
+			
+			document.getElementById("high_pressure_turbine").vto.addEventListener(GWGestureEvent.DRAG, onModelDrag);
+			document.getElementById("high_pressure_turbine").vto.addEventListener(GWGestureEvent.SCALE, onScale);
+			document.getElementById("high_pressure_turbine").vto.addEventListener(GWGestureEvent.TAP, onHotspotTap);*/
 				
 			//mainScreen.addEventListener(GWGestureEvent.TAP, onTap);
 			overlay.addEventListener(GWGestureEvent.ROTATE, onRotate);
@@ -293,6 +295,13 @@ package
 		{
 			if (e.value.n == 5)
 			{
+				var imageScale:Number = e.target.cO.width / rotationGraphic.width;
+				
+				rotationGraphic.scaleX = imageScale * 2;
+				rotationGraphic.scaleY = imageScale * 2;
+				rotationGraphic.x = -250 * (imageScale * 2);
+				rotationGraphic.y = -250 * (imageScale * 2);
+				
 				var fastest_displacement:Number = e.value.rotate_dthetaZ * 5;
 				var fast_displacement:Number = e.value.rotate_dthetaZ * 4;
 				var slow_displacement:Number = e.value.rotate_dthetaZ * 2;
@@ -303,53 +312,11 @@ package
 				{
 					var final_position:Number = 0;
 					
-					if (containers[i].id == "container01") 
+					if (containers[i].id == "container09") 
 					{
-						containers[i].moveForward(slowest_displacement);
-						final_position = containers[i].z;
-					    if (final_position < 0) containers[i].z = 0;
-					}
-					else if (containers[i].id == "container02") 
-					{
-						containers[i].moveBackward(slowest_displacement);
-						final_position = containers[i].z;
-					    if (final_position > 0) containers[i].z = 0;
-					}
-					else if (containers[i].id == "container03") 
-					{
-						containers[i].moveForward(slow_displacement);
-						final_position = containers[i].z;
-					    if (final_position < 0) containers[i].z = 0;
-					}
-					else if (containers[i].id == "container04") 
-					{
-						containers[i].moveBackward(slow_displacement);	
-						final_position = containers[i].z;
-					    if (final_position > 0) containers[i].z = 0;
-					}
-					else if (containers[i].id == "container05") 
-					{
-						containers[i].moveForward(fast_displacement);
-						final_position = containers[i].z;
-					    if (final_position < 0) containers[i].z = 0;
-					}
-					else if (containers[i].id == "container06") 
-					{
-						containers[i].moveBackward(fast_displacement);
-						final_position = containers[i].z;
-					    if (final_position > 0) containers[i].z = 0;
-					}
-					else if (containers[i].id == "container07") 
-					{
-						containers[i].moveBackward(fastest_displacement);
-						final_position = containers[i].z;
-					    if (final_position > 0) containers[i].z = 0;
-					}
-					else if (containers[i].id == "container08") 
-					{
-						containers[i].moveForward(fastest_displacement);
-						final_position = containers[i].z;
-					    if (final_position < 0) containers[i].z = 0;
+						containers[i].moveLeft(slow_displacement);
+						final_position = containers[i].x;
+					    if (final_position > 0) containers[i].x = 0;
 					}
 					else if (containers[i].id == "container10") 
 					{
@@ -381,30 +348,41 @@ package
 						final_position = containers[i].x;
 						if (final_position < 0) containers[i].x = 0;
 					}
-					else if (containers[i].id == "container17") 
-					{
-						containers[i].moveUp(slow_displacement);
-						final_position = containers[i].y;
-						if (final_position < 0) containers[i].y = 0;
-					}
-					else if (containers[i].id == "container18") 
-					{
-						containers[i].moveDown(fast_displacement);
-						final_position = containers[i].y;
-						if (final_position > 0) containers[i].y = 0;
-					}
 					else if (containers[i].id == "container19") 
 					{
 						containers[i].moveLeft(fast_displacement);
 						final_position = containers[i].x;
 						if (final_position > 0) containers[i].x = 0;
 					}
+					else if (containers[i].id == "container20") 
+					{
+						containers[i].moveRight(slow_displacement);
+						final_position = containers[i].z;
+						if (final_position < 0) containers[i].z = 0;
+					}
+					else if (containers[i].id == "container21") 
+					{
+						containers[i].moveRight(slowest_displacement);
+						final_position = containers[i].z;
+						if (final_position < 0) containers[i].z = 0;
+					}
+					else if (containers[i].id == "container22") 
+					{
+						containers[i].moveLeft(slowest_displacement);
+						final_position = containers[i].x;
+						if (final_position > 0) containers[i].x = 0;
+					}
 				}
 				
-				explodeRadialModelYZ(rotor1, fast_displacement);
-				explodeRadialModelYZ(rotor2, fast_displacement);
-				explodeRadialModelYZ(rotor3, fast_displacement);
-				explodeRadialModelYZ(pipes, slow_displacement);
+				explodeRadialModelYZ(rotor1, fast_displacement, 180.0);
+				explodeRadialModelYZ(rotor2, fast_displacement, 180.0);
+				explodeRadialModelYZ(rotor3, slow_displacement, 180.0);
+				explodeRadialModelYZ(pipes, slow_displacement, 180.0);
+				explodeRadialModelYZ(outerShell, fastest_displacement, 90.0);
+				explodeRadialModelYZ(backShell, slowest_displacement, 180.0);
+				explodeRadialModelYZ(centralShell, slow_displacement, 180.0);
+				explodeRadialModelYZ(innerShell, fast_displacement, 180.0);
+				explodeRadialModelYZ(combustionChamber, slowest_displacement, 90.0);
 				
 				// re-orient the containers back to their original orientation
 				// negates viewer interaction and rotation
@@ -415,6 +393,11 @@ package
 					implodeRadialModelYZ(rotor2);
 					implodeRadialModelYZ(rotor3);
 					implodeRadialModelYZ(pipes);
+					implodeRadialModelYZ(outerShell);
+					implodeRadialModelYZ(backShell);
+					implodeRadialModelYZ(centralShell);
+					implodeRadialModelYZ(innerShell);
+					implodeRadialModelYZ(combustionChamber);
 				}
 
 				// draw rotating dial animation
@@ -434,6 +417,13 @@ package
 			var val:Number;
 			if (e.value.n == 3)
 			{
+				var imageScale:Number = e.target.cO.width / translationGraphic.width;
+
+				translationGraphic.scaleX = imageScale*2;
+				translationGraphic.scaleY = imageScale * 2;
+				translationGraphic.x = -250*(imageScale*2);
+				translationGraphic.y = -250*(imageScale*2);
+				
 				var x:int = e.value.localX;
 				var y:int = e.value.localY;
 				directionalArrows.x = x;
@@ -557,12 +547,12 @@ package
 			}
 		}	
 		
-		private function explodeRadialModelYZ(whole_model:Model, displacement:Number):void 
+		private function explodeRadialModelYZ(whole_model:Model, displacement:Number, startingAngle:Number):void 
 		{
 			// starting point of first radial element (at 180 for this demo)
 			// set the starting angle of your index[0] element
 			// e.g: if you first radial element is straight up, set to 90
-			var totalRotation:Number = 180.0;
+			var totalRotation:Number = startingAngle;
 			
 			// gets the total number of elements
 			var degree:int = whole_model.numChildren;
@@ -610,7 +600,7 @@ package
 				// for this demo, elements were arranged in increasing fashion going clockwise, 
 				// thus the negative, counterclockwise would be positive
 				totalRotation -= spacer;
-				if (totalRotation <= 0) totalRotation = 360;
+				if (totalRotation <= 0) totalRotation = totalRotation + 360;
 			}
 		}
 	
