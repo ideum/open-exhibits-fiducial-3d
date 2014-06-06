@@ -7,6 +7,9 @@
 	<LibraryKit>
 		<Library type="swf" src="library/swfs/openexhibits_assets.swf" />	
 	</LibraryKit>
+	
+	<!-- Info screen -->
+	<Include src="library/cml/info_screen.cml"/>
 
 	<!-- 3D Models, Nodes and Containers -->
 	<Include src="library/cml/model.cml"/>
@@ -15,17 +18,17 @@
 	<Include src="library/cml/model-popups.cml"/>
 
 	<!-- Rotating Dial -->
-	<Include src="library/cml/point_dial.cml"/> 
+	<Include src="library/cml/rotation_dial.cml"/> 
 	
-	<!-- Directional Arrows -->
-	<Include src="library/cml/directionalArrows.cml"/> 
+	<!-- Camera Arrows -->
+	<Include src="library/cml/cameraArrows.cml"/> 
+	
+	<!-- Model Arrows -->
+	<Include src="library/cml/modelArrows.cml"/> 
 
 	<!-- Info overlay -->
-	<Image id="info_overlay" width="128" height="128" x="1780" y="950" visible="true" src="library/assets/info/info_icon.png">
+	<Image id="info_overlay" width="75" height="75" x="1805" y="965" visible="true" src="library/assets/info/infobutton.png">
 		<Gesture ref="n-tap"/>
 	</Image>
-	
-	<!-- Info screen -->
-	<Include src="library/cml/info_screen.cml"/>
 
 </cml>

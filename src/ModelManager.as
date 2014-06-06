@@ -58,7 +58,12 @@ package
 		
 		//scalable images for adjusting graphic size, based on fiducial size
 		private var rotationGraphic:Image;
-		private var translationGraphic:Image;
+		
+		//private var rotationGraphicBackward:Image;
+		private var cameraGraphic:Image;
+		
+		//private var rotationGraphicBackward:Image;
+		private var modelGraphic:Image;
 		
 		private var main:ObjectContainer3D;
 
@@ -75,12 +80,11 @@ package
 		
 		private var minScale:Number = .25;
 		private var maxScale:Number = 4;
-	
-		private var minExplosion:Number = -200;
-		private var maxExplosion:Number = 200;
 
-		private var maxRotationX:Number = 60;
+		private var maxRotationX:Number = 20;
 		private var minRotationX:Number = -maxRotationX;
+		private var maxRotationY:Number = 45;
+		private var minRotationY:Number = -maxRotationY;
 	
 		// array of popups for each model piece
 		private var popups:Array;
@@ -95,8 +99,9 @@ package
 		private var containers:Array;
 
 		// UI elements for guidance
-		private var point_dial:Container = document.getElementById("point_dial");
-		private var directionalArrows:Container = document.getElementById("directionalArrows");
+		private var rotation_dial:Container = document.getElementById("rotation_dial");
+		private var cameraArrows:Container = document.getElementById("cameraArrows");
+		private var modelArrows:Container = document.getElementById("modelArrows");
 
 		// Elements for info screen 
 		private var info_overlay:Image = document.getElementById("info_overlay");
@@ -108,6 +113,8 @@ package
 	
 		// Timer for removing info screen 
 		private var secTimer:Timer = new Timer(1000, 1);
+		
+		private var infoOn:Boolean = false;
 	
 		public function ModelManager() 
 		{
@@ -172,71 +179,21 @@ package
 			
 			// graphics for fiducial objects
 			rotationGraphic = document.getElementById("rotation_graphic");
-			translationGraphic = document.getElementById("translation_graphic");
-			
+			cameraGraphic = document.getElementById("camera_graphic");
+			modelGraphic = document.getElementById("model_graphic");
+		
 			for (i = 0; i < models.length; i++)
 			{
 				models[i].vto.addEventListener(GWGestureEvent.DRAG, onModelDrag);
 				models[i].vto.addEventListener(GWGestureEvent.SCALE, onScale);
 				models[i].vto.addEventListener(GWGestureEvent.TAP, onHotspotTap);
 			}
-			
-			/*centralShell.vto.addEventListener(GWGestureEvent.DRAG, onModelDrag);
-			centralShell.vto.addEventListener(GWGestureEvent.SCALE, onScale);
-			centralShell.vto.addEventListener(GWGestureEvent.TAP, onHotspotTap);
-
-			innerShell.vto.addEventListener(GWGestureEvent.DRAG, onModelDrag);
-			innerShell.vto.addEventListener(GWGestureEvent.SCALE, onScale);
-			innerShell.vto.addEventListener(GWGestureEvent.TAP, onHotspotTap);
-			
-			outerShell.vto.addEventListener(GWGestureEvent.DRAG, onModelDrag);
-			outerShell.vto.addEventListener(GWGestureEvent.SCALE, onScale);
-			outerShell.vto.addEventListener(GWGestureEvent.TAP, onHotspotTap);
-	
-			combustionChamber.vto.addEventListener(GWGestureEvent.DRAG, onModelDrag);
-			combustionChamber.vto.addEventListener(GWGestureEvent.SCALE, onScale);
-			combustionChamber.vto.addEventListener(GWGestureEvent.TAP, onHotspotTap);
-			
-			document.getElementById("front_fan").vto.addEventListener(GWGestureEvent.DRAG, onModelDrag);
-			document.getElementById("front_fan").vto.addEventListener(GWGestureEvent.SCALE, onScale);
-			document.getElementById("front_fan").vto.addEventListener(GWGestureEvent.TAP, onHotspotTap);
-			
-			document.getElementById("central_fan").vto.addEventListener(GWGestureEvent.DRAG, onModelDrag);
-			document.getElementById("central_fan").vto.addEventListener(GWGestureEvent.SCALE, onScale);
-			document.getElementById("central_fan").vto.addEventListener(GWGestureEvent.TAP, onHotspotTap);
-			
-			document.getElementById("back_fan").vto.addEventListener(GWGestureEvent.DRAG, onModelDrag);
-			document.getElementById("back_fan").vto.addEventListener(GWGestureEvent.SCALE, onScale);
-			document.getElementById("back_fan").vto.addEventListener(GWGestureEvent.TAP, onHotspotTap);
-			
-			document.getElementById("wheel").vto.addEventListener(GWGestureEvent.DRAG, onModelDrag);
-			document.getElementById("wheel").vto.addEventListener(GWGestureEvent.SCALE, onScale);
-			document.getElementById("wheel").vto.addEventListener(GWGestureEvent.TAP, onHotspotTap);
-			
-			document.getElementById("pipes").vto.addEventListener(GWGestureEvent.DRAG, onModelDrag);
-			document.getElementById("pipes").vto.addEventListener(GWGestureEvent.SCALE, onScale);
-			document.getElementById("pipes").vto.addEventListener(GWGestureEvent.TAP, onHotspotTap);
-			
-			document.getElementById("compressor").vto.addEventListener(GWGestureEvent.DRAG, onModelDrag);
-			document.getElementById("compressor").vto.addEventListener(GWGestureEvent.SCALE, onScale);
-			document.getElementById("compressor").vto.addEventListener(GWGestureEvent.TAP, onHotspotTap);
-			
-			document.getElementById("high_pressure_compressor").vto.addEventListener(GWGestureEvent.DRAG, onModelDrag);
-			document.getElementById("high_pressure_compressor").vto.addEventListener(GWGestureEvent.SCALE, onScale);
-			document.getElementById("high_pressure_compressor").vto.addEventListener(GWGestureEvent.TAP, onHotspotTap);
-			
-			document.getElementById("turbine").vto.addEventListener(GWGestureEvent.DRAG, onModelDrag);
-			document.getElementById("turbine").vto.addEventListener(GWGestureEvent.SCALE, onScale);
-			document.getElementById("turbine").vto.addEventListener(GWGestureEvent.TAP, onHotspotTap);
-			
-			document.getElementById("high_pressure_turbine").vto.addEventListener(GWGestureEvent.DRAG, onModelDrag);
-			document.getElementById("high_pressure_turbine").vto.addEventListener(GWGestureEvent.SCALE, onScale);
-			document.getElementById("high_pressure_turbine").vto.addEventListener(GWGestureEvent.TAP, onHotspotTap);*/
 				
 			//mainScreen.addEventListener(GWGestureEvent.TAP, onTap);
 			overlay.addEventListener(GWGestureEvent.ROTATE, onRotate);
 			overlay.addEventListener(GWGestureEvent.DRAG, onDrag);
 			overlay.addEventListener(GWGestureEvent.SCALE, onScale);
+			overlay.addEventListener(GWGestureEvent.RELEASE, clear);
 			
 			// Add listeners for infor screen and exit buttons
 			document.getElementById("info_overlay").addEventListener(GWGestureEvent.TAP, onInfoTap);
@@ -250,17 +207,20 @@ package
 		
 			// create transparency for info screen and initial UI elements
 			info_screen.alpha = 0;
-			point_dial.alpha = 0;
-			directionalArrows.alpha = 0;
+			rotation_dial.alpha = 0;
+			cameraArrows.alpha = 0;
+			modelArrows.alpha = 0;
 			
 			// Add UI elements
+			overlay.addChild(rotation_dial);
+			overlay.addChild(cameraArrows);
+			overlay.addChild(modelArrows);
 			overlay.addChild(info_overlay);
-			overlay.addChild(point_dial);
-			overlay.addChild(directionalArrows);
 			
 			// Set initial state of UI elements
-			fade(point_dial, "out");
-			fade(directionalArrows, "out");
+			fade(rotation_dial, "out");
+			fade(cameraArrows, "out");
+			fade(modelArrows, "out");
 		}
 		
 		// our update function
@@ -271,7 +231,7 @@ package
 			if (dialValue == 360) dialValue = 0.0;
 
 			// up our count
-			point_dial.rotationZ = dialValue;
+			rotation_dial.rotationZ = dialValue;
 		}
 		
 		private function onModelDrag(e:GWGestureEvent):void 
@@ -281,188 +241,227 @@ package
 
 			if (e.value.n == 1)
 			{
-			  var val:Number = current_container.rotationX + e.value.drag_dy * .25;
-			
-			  if (val < minRotationX) val = minRotationX;
-			  else if (val > maxRotationX) val = maxRotationX;
+			  var valX:Number = current_container.rotationX + e.value.drag_dy * .25;
+			  var valY:Number = current_container.rotationY + e.value.drag_dx * .25;
 				
-			  current_container.rotationY -= e.value.drag_dx * .5;
-			  current_container.rotationX = val;
+			  current_container.rotationY = valY;
+			  current_container.rotationX = valX;
 			}
 		}
 		
 		private function onRotate(e:GWGestureEvent):void 
 		{
-			if (e.value.n == 5)
+			if (!infoOn)
 			{
-				var imageScale:Number = e.target.cO.width / rotationGraphic.width;
-				
-				rotationGraphic.scaleX = imageScale * 2;
-				rotationGraphic.scaleY = imageScale * 2;
-				rotationGraphic.x = -250 * (imageScale * 2);
-				rotationGraphic.y = -250 * (imageScale * 2);
-				
-				var fastest_displacement:Number = e.value.rotate_dthetaZ * 5;
-				var fast_displacement:Number = e.value.rotate_dthetaZ * 4;
-				var slow_displacement:Number = e.value.rotate_dthetaZ * 2;
-				var slowest_displacement:Number = e.value.rotate_dthetaZ * 1;
-				var curr_position:Vector3D = main.scenePosition;
-				
-				for (var i:int = 0; i < containers.length; i++)
+				if (e.value.n == 5)
 				{
-					var final_position:Number = 0;
+					/*var imageScale:Number = e.target.cO.width / rotationGraphic.width;
 					
-					if (containers[i].id == "container09") 
+					rotationGraphic.scaleX = imageScale * 2;
+					rotationGraphic.scaleY = imageScale * 2;
+					rotationGraphic.x = -323 * (imageScale * 2);
+					rotationGraphic.y = -336 * (imageScale * 2);*/
+					
+					var fastest_displacement:Number = e.value.rotate_dthetaZ * 5;
+					var fast_displacement:Number = e.value.rotate_dthetaZ * 4;
+					var slow_displacement:Number = e.value.rotate_dthetaZ * 2;
+					var slowest_displacement:Number = e.value.rotate_dthetaZ * 1;
+					var curr_position:Vector3D = main.scenePosition;
+					
+					for (var i:int = 0; i < containers.length; i++)
 					{
-						containers[i].moveLeft(slow_displacement);
-						final_position = containers[i].x;
-					    if (final_position > 0) containers[i].x = 0;
+						var final_position:Number = 0;
+						
+						if (containers[i].id == "container09") 
+						{
+							containers[i].moveLeft(slow_displacement);
+							final_position = containers[i].x;
+							if (final_position > 0) containers[i].x = 0;
+						}
+						else if (containers[i].id == "container10") 
+						{
+							containers[i].moveLeft(fastest_displacement);
+							final_position = containers[i].x;
+							if (final_position > 0) containers[i].x = 0;
+						}
+						else if (containers[i].id == "container11") 
+						{
+							containers[i].moveRight(fastest_displacement);
+							final_position = containers[i].x;
+							if (final_position < 0) containers[i].x = 0;
+						}
+						else if (containers[i].id == "container12") 
+						{
+							containers[i].moveRight(slow_displacement);	
+							final_position = containers[i].x;
+							if (final_position < 0) containers[i].x = 0;
+						}
+						else if (containers[i].id == "container13") 
+						{
+							containers[i].moveLeft(slow_displacement);
+							final_position = containers[i].x;
+							if (final_position > 0) containers[i].x = 0;
+						}
+						else if (containers[i].id == "container14") 
+						{
+							containers[i].moveRight(fast_displacement);
+							final_position = containers[i].x;
+							if (final_position < 0) containers[i].x = 0;
+						}
+						else if (containers[i].id == "container19") 
+						{
+							containers[i].moveLeft(fast_displacement);
+							final_position = containers[i].x;
+							if (final_position > 0) containers[i].x = 0;
+						}
+						else if (containers[i].id == "container20") 
+						{
+							containers[i].moveRight(slow_displacement);
+							final_position = containers[i].z;
+							if (final_position < 0) containers[i].z = 0;
+						}
+						else if (containers[i].id == "container21") 
+						{
+							containers[i].moveRight(slowest_displacement);
+							final_position = containers[i].z;
+							if (final_position < 0) containers[i].z = 0;
+						}
+						else if (containers[i].id == "container22") 
+						{
+							containers[i].moveLeft(slowest_displacement);
+							final_position = containers[i].x;
+							if (final_position > 0) containers[i].x = 0;
+						}
 					}
-					else if (containers[i].id == "container10") 
+					
+					explodeRadialModelYZ(rotor1, fast_displacement, 180.0);
+					explodeRadialModelYZ(rotor2, fast_displacement, 180.0);
+					explodeRadialModelYZ(rotor3, slow_displacement, 180.0);
+					explodeRadialModelYZ(pipes, slow_displacement, 180.0);
+					explodeRadialModelYZ(outerShell, fastest_displacement, 90.0);
+					explodeRadialModelYZ(backShell, slowest_displacement, 180.0);
+					explodeRadialModelYZ(centralShell, slow_displacement, 180.0);
+					explodeRadialModelYZ(innerShell, fast_displacement, 180.0);
+					explodeRadialModelYZ(combustionChamber, slowest_displacement, 90.0);
+					
+					// re-orient the containers back to their original orientation
+					// negates viewer interaction and rotation
+					if (e.value.rotate_dthetaZ < -10.0)
 					{
-						containers[i].moveLeft(fastest_displacement);
-						final_position = containers[i].x;
-					    if (final_position > 0) containers[i].x = 0;
+						reOrderContainers();
+						implodeRadialModelYZ(rotor1);
+						implodeRadialModelYZ(rotor2);
+						implodeRadialModelYZ(rotor3);
+						implodeRadialModelYZ(pipes);
+						implodeRadialModelYZ(outerShell);
+						implodeRadialModelYZ(backShell);
+						implodeRadialModelYZ(centralShell);
+						implodeRadialModelYZ(innerShell);
+						implodeRadialModelYZ(combustionChamber);
 					}
-					else if (containers[i].id == "container11") 
-					{
-						containers[i].moveRight(fastest_displacement);
-						final_position = containers[i].x;
-						if (final_position < 0) containers[i].x = 0;
-					}
-					else if (containers[i].id == "container12") 
-					{
-						containers[i].moveRight(slow_displacement);	
-						final_position = containers[i].x;
-						if (final_position < 0) containers[i].x = 0;
-					}
-					else if (containers[i].id == "container13") 
-					{
-						containers[i].moveLeft(slow_displacement);
-						final_position = containers[i].x;
-						if (final_position > 0) containers[i].x = 0;
-					}
-					else if (containers[i].id == "container14") 
-					{
-						containers[i].moveRight(fast_displacement);
-						final_position = containers[i].x;
-						if (final_position < 0) containers[i].x = 0;
-					}
-					else if (containers[i].id == "container19") 
-					{
-						containers[i].moveLeft(fast_displacement);
-						final_position = containers[i].x;
-						if (final_position > 0) containers[i].x = 0;
-					}
-					else if (containers[i].id == "container20") 
-					{
-						containers[i].moveRight(slow_displacement);
-						final_position = containers[i].z;
-						if (final_position < 0) containers[i].z = 0;
-					}
-					else if (containers[i].id == "container21") 
-					{
-						containers[i].moveRight(slowest_displacement);
-						final_position = containers[i].z;
-						if (final_position < 0) containers[i].z = 0;
-					}
-					else if (containers[i].id == "container22") 
-					{
-						containers[i].moveLeft(slowest_displacement);
-						final_position = containers[i].x;
-						if (final_position > 0) containers[i].x = 0;
-					}
-				}
-				
-				explodeRadialModelYZ(rotor1, fast_displacement, 180.0);
-				explodeRadialModelYZ(rotor2, fast_displacement, 180.0);
-				explodeRadialModelYZ(rotor3, slow_displacement, 180.0);
-				explodeRadialModelYZ(pipes, slow_displacement, 180.0);
-				explodeRadialModelYZ(outerShell, fastest_displacement, 90.0);
-				explodeRadialModelYZ(backShell, slowest_displacement, 180.0);
-				explodeRadialModelYZ(centralShell, slow_displacement, 180.0);
-				explodeRadialModelYZ(innerShell, fast_displacement, 180.0);
-				explodeRadialModelYZ(combustionChamber, slowest_displacement, 90.0);
-				
-				// re-orient the containers back to their original orientation
-				// negates viewer interaction and rotation
-				if (e.value.rotate_dthetaZ < -10.0)
-				{
-					reOrderContainers();
-					implodeRadialModelYZ(rotor1);
-					implodeRadialModelYZ(rotor2);
-					implodeRadialModelYZ(rotor3);
-					implodeRadialModelYZ(pipes);
-					implodeRadialModelYZ(outerShell);
-					implodeRadialModelYZ(backShell);
-					implodeRadialModelYZ(centralShell);
-					implodeRadialModelYZ(innerShell);
-					implodeRadialModelYZ(combustionChamber);
-				}
 
-				// draw rotating dial animation
-				var x:int = e.value.localX;
-				var y:int = e.value.localY;
-				point_dial.x = x;
-				point_dial.y = y;
-			
-				fade(point_dial, "in");
+					// draw rotating dial animation
+					var x:int = e.value.localX;
+					var y:int = e.value.localY;
+					rotation_dial.x = x;
+					rotation_dial.y = y;
+				
+					fade(rotation_dial, "in");
 
+				}
+				else fade(rotation_dial, "out");
 			}
-			else fade(point_dial, "out");
 		}
 		
 		private function onDrag(e:GWGestureEvent):void
 		{
-			var val:Number;
-			if (e.value.n == 3)
+			var valX:Number;
+			var valY:Number;
+			var imageScale:Number;
+			var x:int;
+			var y:int;
+			
+			if (!infoOn)
 			{
-				var imageScale:Number = e.target.cO.width / translationGraphic.width;
+				if (e.value.n == 3)
+				{
+					/*imageScale = e.target.cO.width / modelGraphic.width;
 
-				translationGraphic.scaleX = imageScale*2;
-				translationGraphic.scaleY = imageScale * 2;
-				translationGraphic.x = -250*(imageScale*2);
-				translationGraphic.y = -250*(imageScale*2);
+					modelGraphic.scaleX = imageScale * 2;
+					modelGraphic.scaleY = imageScale * 2;
+					modelGraphic.x = -384 * (imageScale * 2);
+					modelGraphic.y = -384 * (imageScale * 2);
+					
+					modelGraphic.x = -384;
+					modelGraphic.y = -384;*/
+					
+					x = e.value.localX;
+					y = e.value.localY;
+					modelArrows.x = x;
+					modelArrows.y = y;
+					fade(modelArrows, "in");
+					
+					valY = main.rotationY + e.value.drag_dx * .25;
+					valX = main.rotationX + e.value.drag_dy * .25;
 				
-				var x:int = e.value.localX;
-				var y:int = e.value.localY;
-				directionalArrows.x = x;
-				directionalArrows.y = y;
-				fade(directionalArrows, "in");
+					/*if (valX < minRotationX) valX = minRotationX;
+					else if (valX > maxRotationX) valX = maxRotationX;
+					
+					if (valY < minRotationX) valY = minRotationY;
+					else if (valY > maxRotationX) valY = maxRotationY;*/
+					
+					main.rotationY = valY;
+					main.rotationX = valX;
+				}
 				
-				val = main.rotationX + e.value.drag_dy * .25;
-			
-				if (val < minRotationX) val = minRotationX;
-				else if (val > maxRotationX) val = maxRotationX;
+				if (e.value.n == 4)
+				{
+					/*imageScale = e.target.cO.width / modelGraphic.width;
+
+					cameraGraphic.scaleX = imageScale * 2;
+					cameraGraphic.scaleY = imageScale * 2;
+					cameraGraphic.x = -403 * (imageScale * 2);
+					cameraGraphic.y = -403 * (imageScale * 2);
+					
+					cameraGraphic.x = -403;
+					cameraGraphic.y = -403;*/
+					
+					x = e.value.localX;
+					y = e.value.localY;
+					cameraArrows.x = x;
+					cameraArrows.y = y;
+					fade(cameraArrows, "in");
+					
+					valY = cam.rotationY + e.value.drag_dx * .25;
+					valX = cam.rotationX + e.value.drag_dy * .25;
 				
-				main.rotationY -= e.value.drag_dx * .5;
-				main.rotationX = val;
+					if (valX < minRotationX) valX = minRotationX;
+					else if (valX > maxRotationX) valX = maxRotationX;
+					
+					if (valY < minRotationY) valY = minRotationY;
+					else if (valY > maxRotationY) valY = maxRotationY;
+					
+					cam.rotationY = valY;
+					cam.rotationX = valX;
+				}
+					
+				else fade(cameraArrows, "out");
 			}
-			
-			if (e.value.n == 8)
-			{
-				val = cam.rotationX + e.value.drag_dy * .25;
-			
-				if (val < minRotationX) val = minRotationX;
-				else if (val > maxRotationX) val = maxRotationX;
-				
-				cam.rotationY -= e.value.drag_dx * .5;
-				cam.rotationX = val;
-			}
-				
-			else fade(directionalArrows, "out");
 		}
 		
 		private function onScale(e:GWGestureEvent):void
 		{
-			var val:Number = main.scaleX + e.value.scale_dsx * .75;
-			if (val < minScale) val = minScale;
-			else if (val > maxScale) val = maxScale;
-			
-			// scale the entire model, not individual pieces
-			main.scaleX = val;
-			main.scaleY = val;
-			main.scaleZ = val;
+			if (!infoOn)
+			{
+				var val:Number = main.scaleX + e.value.scale_dsx * .75;
+				if (val < minScale) val = minScale;
+				else if (val > maxScale) val = maxScale;
+				
+				// scale the entire model, not individual pieces
+				main.scaleX = val;
+				main.scaleY = val;
+				main.scaleZ = val;
+			}
 		}
 
 		private function onHotspotTap(e:GWGestureEvent):void 
@@ -496,10 +495,13 @@ package
 			overlay.addChild(info_screen);
 			if (info_screen.visible == false) info_screen.visible = true;
 			fade(info_screen, "in");
+			infoOn = true;
+			clearPopups();
 		}
 			
 		private function onInfoTapExit(e:GWGestureEvent):void
 		{
+			infoOn = false;
 			fade(info_screen, "out");
 			secTimer.start();
 		}
@@ -607,6 +609,24 @@ package
 		private function radians(degrees:Number):Number
 		{
 			return degrees * Math.PI / 180;
+		}
+		
+		private function clear(e:GWGestureEvent=null):void
+		{
+			fade(cameraArrows, "out");
+			fade(rotation_dial, "out");
+			fade(modelArrows, "out");
+		}
+		
+		private function clearPopups(e:GWGestureEvent=null):void
+		{
+			for (var i:int = 0; i < popups.length; i++) 
+			{
+				if (popups[i].visible) 
+				{
+					popups[i].tweenOut();
+				}
+			}
 		}
 	}		
 }

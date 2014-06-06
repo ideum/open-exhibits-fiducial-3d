@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cml>
+	<Container id="rotation_dial" visible="false">
+		<Image id="rotation_graphic" width="384" height="400" x="-197" y="-200" mouseChildren="false" src="library/assets/dial/zoom.png"></Image>
+		<!-- <Image id="rotation_graphic_backward" width="500" height="548" x="-250" y="-274" mouseChildren="false" src="library/assets/dial/zoom_backward.png"></Image> -->
+    </Container>
+	
+</cml>

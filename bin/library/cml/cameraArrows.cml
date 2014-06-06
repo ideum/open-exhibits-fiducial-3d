@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cml>
+	<Container id="cameraArrows" visible="false">
+		<Image id="camera_graphic" width="400" height="400" x="-200" y="-200" mouseChildren="false" src="library/assets/directionalArrows/rotatecamera.png"></Image>
+    </Container>
+</cml>

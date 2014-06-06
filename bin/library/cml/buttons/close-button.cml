@@ -2,14 +2,14 @@
 
 <cml>
 
-<Button id="close-btn" class="close-btns" dispatch="tap:close" hit="hit" initial="close-up" x="15" y="11">	
+<Button id="close-btn" class="close-btns" dispatch="tap:close" hit="hit" initial="close-up" x="290" y="3.5">	
 	<Container id="close-up" class="up">
-		<Container x="450" y="8.5">
-			<Graphic alpha="1" shape="vector" width="13" height="13" lineStroke="3" lineColor="0xffffff" fill="none"  />
-			<Graphic alpha="1" x="13" shape="vector" width="-13" height="13" lineStroke="3" lineColor="0xffffff" fill="none"  />
+		<Container x="475" y="8.5">
+			<!-- <Graphic alpha="1" shape="vector" width="13" height="13" lineStroke="3" lineColor="0xffffff" fill="none"  />
+			<Graphic alpha="1" x="13" shape="vector" width="-13" height="13" lineStroke="3" lineColor="0xffffff" fill="none"  /> -->
 		</Container>
 	</Container>
-	<Graphic id="hit" alpha="0" shape="circle" radius="50" lineStroke="0" fill="0xFFFFFF" x="445" y="5" />	
+	<Graphic id="hit" alpha="0" shape="circle" radius="15" lineStroke="0" fill="0xFFFFFF" x="290" y="3.5" />	
 	<Gesture ref="n-tap" />
 </Button>
 

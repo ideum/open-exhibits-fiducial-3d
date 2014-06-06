@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cml>
+	<Container id="modelArrows" visible="false">
+		<Image id="model_graphic" width="400" height="400" x="-200" y="-200" mouseChildren="false" src="library/assets/directionalArrows/rotatemodel.png"></Image>
+    </Container>
+</cml>
