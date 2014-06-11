@@ -10,7 +10,8 @@
 			<Camera id="main_cam" x="0" y="100" z="-500" lens="prospective" color="0x3E5167"/>
 			<!-- <Camera id="main_cam" pos="0,0,-1000" lens="orthographic" color="0x444444" /> -->
 			 
-			<!-- <SkyBox>
+			<!-- Initial skybox for reference
+			<SkyBox>
 			    <Image width="1024" src="library/assets/sky/background_2048_right_logo.png"/>
 				<Image width="1024" src="library/assets/sky/background_2048_left_logo.png"/>
 				<Image width="1024" src="library/assets/sky/background_2048_top.png"/>
@@ -28,7 +29,8 @@
 				<Image width="1024" src="library/assets/sky/background_red_logos.png"/>
 			</SkyBox>
 
-			<!-- <SkyBox>
+			<!-- Dark skybox for video shoot
+			<SkyBox>
 			    <Image width="1024" src="library/assets/sky/black_background_with_logos.png"/>
 				<Image width="1024" src="library/assets/sky/black_background_with_logos.png"/>
 				<Image width="1024" src="library/assets/sky/black_background.png"/>
@@ -145,7 +147,7 @@
 				</Container3D>
 				
 				<Container3D id="container15">
-					<Model id="pipes" name="flame_holder" src="library/assets/model/pipes/pipes.awd" lightPicker="lp-1" touchEnabled="true" sca=".35, .35, .35">
+					<Model id="pipes" name="blank_placeholder" src="library/assets/model/pipes/pipes.awd" lightPicker="lp-1" touchEnabled="true" sca=".35, .35, .35">
 						<Gesture ref="n-drag-3d"/>
 						<Gesture ref="n-rotate-3d"/>
 						<Gesture ref="n-tap"/>
@@ -154,7 +156,7 @@
 				</Container3D> 
 				
 				<Container3D id="container17">
-					<Model id="combustion_chamber" name="combustor" src="library/assets/model/combustor/combustor.awd" lightPicker="lp-1" touchEnabled="true" sca=".35, .35, .35">
+					<Model id="combustion_chamber" name="blank_placeholder" src="library/assets/model/combustor/combustor.awd" lightPicker="lp-1" touchEnabled="true" sca=".35, .35, .35">
 						<Gesture ref="n-drag-3d"/>
 						<Gesture ref="n-rotate-3d"/>
 						<Gesture ref="n-tap"/>
@@ -172,7 +174,7 @@
 				</Container3D>
 				
 				<Container3D id="container20">
-					<Model id="turbine" name="LowPressureTurbine" src="library/assets/model/engine/turbine.awd" lightPicker="lp-1" touchEnabled="true" sca=".35, .35, .35">
+					<Model id="turbine" name="blank_placeholder" src="library/assets/model/engine/turbine.awd" lightPicker="lp-1" touchEnabled="true" sca=".35, .35, .35">
 						<Gesture ref="n-drag-3d"/>
 						<Gesture ref="n-rotate-3d"/>
 						<Gesture ref="n-tap"/>
@@ -181,7 +183,7 @@
 				</Container3D>
 				
 				<Container3D id="container21">
-					<Model id="high_pressure_turbine" name="HighPressureTurbine"  src="library/assets/model/engine/high_pressure_turbine.awd" lightPicker="lp-1" touchEnabled="true" sca=".35, .35, .35">
+					<Model id="high_pressure_turbine" name="blank_placeholder"  src="library/assets/model/engine/high_pressure_turbine.awd" lightPicker="lp-1" touchEnabled="true" sca=".35, .35, .35">
 						<Gesture ref="n-drag-3d"/>
 						<Gesture ref="n-rotate-3d"/>
 						<Gesture ref="n-tap"/>

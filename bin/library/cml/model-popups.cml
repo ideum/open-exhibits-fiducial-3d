@@ -244,7 +244,7 @@
 	<Include src="library/cml/close-button.cml"/>
 	<Gesture ref="n-drag" />
 	<Gesture ref="n-tap" />
-	</ModelPopup>
+	</ModelPopup> 
 	
 	<ModelPopup id="HighPressureTurbine" width="330" height="435" mouseChildren="true">
 	<Image width="325" height="433" src="library/assets/hotspots/infobox.png"/>

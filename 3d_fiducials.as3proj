@@ -21,7 +21,6 @@
     <class path="..\gestureworks-flash-cml" />
     <class path="..\gestureworks-flash-gml" />
     <class path="..\gestureworks-flash-away3d" />
-    <class path="..\gestureworks-flash-away3d-work" />
   </classpaths>
   <!-- Build options -->
   <build>

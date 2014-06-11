@@ -160,7 +160,7 @@ package
 		
 			main = document.getElementById("main");
 			
-			// grab complex radial elements for explosions
+			// grab complex radial elements for explosions individually
 			rotor1 = document.getElementById("front_fan");
 			rotor2 = document.getElementById("central_fan");
 			rotor3 = document.getElementById("back_fan");
@@ -300,11 +300,20 @@ package
 
 			if (e.value.n == 1)
 			{
+			  /* code for rotating individual model pieces	
 			  var valX:Number = current_container.rotationX + e.value.drag_dy * .25;
 			  var valY:Number = current_container.rotationY + e.value.drag_dx * -.25;
 				
 			  current_container.rotationY = valY;
-			  current_container.rotationX = valX;
+			  current_container.rotationX = valX;*/
+			  
+			  // opted to translate models based on touch, as opposed to 
+			  // rotating them individually
+			  var valX:Number = current_container.x + e.value.drag_dx;
+			  var valY:Number = current_container.y + e.value.drag_dy;
+				
+			  current_container.y = valY;
+			  current_container.x = valX;
 			}
 		}
 		
@@ -314,19 +323,16 @@ package
 			{
 				if (e.value.n == 4)
 				{
-					/*var imageScale:Number = e.target.cO.width / rotationGraphic.width;
-					
-					rotationGraphic.scaleX = imageScale * 2;
-					rotationGraphic.scaleY = imageScale * 2;
-					rotationGraphic.x = -323 * (imageScale * 2);
-					rotationGraphic.y = -336 * (imageScale * 2);*/
-					
+					// Create various speeds for explosion based on user input
 					var fastest_displacement:Number = e.value.rotate_dthetaZ * 5;
 					var fast_displacement:Number = e.value.rotate_dthetaZ * 4;
 					var slow_displacement:Number = e.value.rotate_dthetaZ * 2;
 					var slowest_displacement:Number = e.value.rotate_dthetaZ * 1;
 					var curr_position:Vector3D = main.scenePosition;
 					
+					
+					// Move each model piece in a partcular motion, based on its size and location
+					// within the model
 					for (var i:int = 0; i < containers.length; i++)
 					{
 						var final_position:Number = 0;
@@ -393,6 +399,8 @@ package
 						}
 					}
 					
+					// explode radial pieces based on how many pieces there are
+					// and the location (degree) of the starting piece.
 					explodeRadialModelYZ(rotor1, fast_displacement, 180.0);
 					explodeRadialModelYZ(rotor2, fast_displacement, 180.0);
 					explodeRadialModelYZ(rotor3, slow_displacement, 180.0);
@@ -444,56 +452,34 @@ package
 			{
 				if (e.value.n == 3)
 				{
-					/*imageScale = e.target.cO.width / modelGraphic.width;
-
-					modelGraphic.scaleX = imageScale * 2;
-					modelGraphic.scaleY = imageScale * 2;
-					modelGraphic.x = -384 * (imageScale * 2);
-					modelGraphic.y = -384 * (imageScale * 2);
-					
-					modelGraphic.x = -384;
-					modelGraphic.y = -384;*/
-					
+					// redraw model rotate arrows at fiducial location
 					x = e.value.localX;
 					y = e.value.localY;
 					modelArrows.x = x;
 					modelArrows.y = y;
 					fade(modelArrows, "in");
 					
+					// get current full model rotation and apply new change in rotation
 					valY = main.rotationY + e.value.drag_dx * -.25;
 					valX = main.rotationX + e.value.drag_dy * -.25;
 				
-					/*if (valX < minRotationX) valX = minRotationX;
-					else if (valX > maxRotationX) valX = maxRotationX;
-					
-					if (valY < minRotationX) valY = minRotationY;
-					else if (valY > maxRotationX) valY = maxRotationY;*/
-					
 					main.rotationY = valY;
 					main.rotationX = valX;
 				}
-				
-				if (e.value.n == 5)
+				else if (e.value.n == 5)
 				{
-					/*imageScale = e.target.cO.width / modelGraphic.width;
-
-					cameraGraphic.scaleX = imageScale * 2;
-					cameraGraphic.scaleY = imageScale * 2;
-					cameraGraphic.x = -403 * (imageScale * 2);
-					cameraGraphic.y = -403 * (imageScale * 2);
-					
-					cameraGraphic.x = -403;
-					cameraGraphic.y = -403;*/
-					
+					// redraw camera arrows at fiducial location
 					x = e.value.localX;
 					y = e.value.localY;
 					cameraArrows.x = x;
 					cameraArrows.y = y;
 					fade(cameraArrows, "in");
 					
+					// get current camera rotation and apply new change in rotation
 					valY = cam.rotationY + e.value.drag_dx * .25;
 					valX = cam.rotationX + e.value.drag_dy * .25;
 				
+					// limit the range of motion of the camera
 					if (valX < minRotationX) valX = minRotationX;
 					else if (valX > maxRotationX) valX = maxRotationX;
 					
@@ -503,7 +489,6 @@ package
 					cam.rotationY = valY;
 					cam.rotationX = valX;
 				}
-					
 				else fade(cameraArrows, "out");
 			}
 		}
@@ -535,6 +520,7 @@ package
 			}
 			if (!popup.visible) 
 			{
+				// Make sure the popup stays on the screen
 				if (this.mouseX + 330 > overlay.width) popup.x = overlay.width - 330;
 				else popup.x = this.mouseX;
 				if (this.mouseY + 435 > overlay.height) popup.y = overlay.height - 435;
