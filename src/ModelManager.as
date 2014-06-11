@@ -153,9 +153,9 @@ package
 			overlay.clusterBubbling = true;
 			
 			// add events 
-			overlay.gestureList = { "n-tap": true,
+			overlay.gestureList = { "1-finger-tap": true,
 									"n-rotate-3d": true,
-									"n-drag": true, 
+									"1-finger-drag": true, 
 									"n-scale-3d": true };
 		
 			main = document.getElementById("main");

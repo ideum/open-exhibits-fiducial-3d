@@ -30,27 +30,27 @@ package {
 			CMLParser.removeEventListener(CMLParser.COMPLETE, cmlInit);
 			button = searchChildren(Button); 
 			
-			button.motionEnabled 	= true;
+			button.motionEnabled 	= false;
 			button.transform3d 		= false;
 			button.gestureEvents 	= true;
 			button.releaseInertia 	= false;
 			button.nativeTransform 	= false;
 			button.affineTransform 	= false;
-			button.motionClusterMode = "global";
-			button.gestureList = { "n-tap":true };
+			//button.motionClusterMode = "global";
+			button.gestureList = { "1-finger-tap":true };
 			
 			button.addEventListener(GWGestureEvent.TAP, onButtonTap);
-			button.addEventListener(GWGestureEvent.MOTION_HOLD, onButtonMotionTap);
+		//	button.addEventListener(GWGestureEvent.MOTION_HOLD, onButtonMotionTap);
 			addEventListener(GWTouchEvent.TOUCH_BEGIN, onTouchBegin);
 		}
 		
 		private function onButtonTap(e:GWGestureEvent):void {
 			tweenOut();
 		}
-		private function onButtonMotionTap(e:GWGestureEvent):void {
-			trace("motion tap panel btn");
-			tweenOut();
-		}
+		//private function onButtonMotionTap(e:GWGestureEvent):void {
+			//trace("motion tap panel btn");
+			//tweenOut();
+		//}
 		
 		private function onTouchBegin(e:GWTouchEvent):void {
 			parent.addChild(this);
