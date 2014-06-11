@@ -28,18 +28,26 @@ package
 	import com.gestureworks.cml.elements.Container;
 	import com.gestureworks.core.TouchSprite;
 	import flash.display.BitmapData;
+	//import flash.net.Socket;
 
 	import com.greensock.plugins.ShortRotationPlugin;
 	import com.greensock.plugins.TweenPlugin;
 	import flash.display.Sprite;
+	
+	// Get network and flash events
 	import flash.events.Event;
+	import flash.events.IOErrorEvent;
+	import flash.events.ProgressEvent;
+	import flash.events.SecurityErrorEvent;
+	import flash.events.DataEvent;
+	
 	import flash.geom.Vector3D;
-
 	import flash.geom.ColorTransform;
 	import com.greensock.TweenLite;
 	import com.greensock.plugins.*;
 	import flash.utils.Timer;
 	import flash.events.TimerEvent;
+	import flash.events.DataEvent;
 	
 	/**
 	* ...
@@ -48,13 +56,16 @@ package
 	
 	public class ModelManager extends Sprite 
 	{ 	
+		//
+		//public var xmlsock:Socket = new Socket(); 
+	
+        
 		// set to true for debugging purposes
 		private var debug:Boolean = false;
 		
 		private var overlay:TouchSprite = new TouchSprite();
 		private var cam:Camera = new Camera();
 		private var model_container:TouchContainer3D;
-		private var view:View3D;
 		
 		//scalable images for adjusting graphic size, based on fiducial size
 		private var rotationGraphic:Image;
@@ -121,12 +132,11 @@ package
 			TweenPlugin.activate([ShortRotationPlugin]);
 			super();
 		}
-
+ 
 		public function init():void 
 		{
+			
 			// Construct main screen and gesture enabling
-			view = new View3D();
-			stage.addChild(new AwayStats(view));
 			stage.addChild(overlay);
 			
 			// get model
@@ -195,6 +205,18 @@ package
 			overlay.addEventListener(GWGestureEvent.SCALE, onScale);
 			overlay.addEventListener(GWGestureEvent.RELEASE, clear);
 			
+			//set up socket event handlers
+			/*xmlsock.addEventListener(Event.CONNECT, connectHandler);
+			xmlsock.addEventListener(Event.CLOSE, closeHandler);
+			xmlsock.addEventListener(IOErrorEvent.IO_ERROR, ioErrorHandler);
+			xmlsock.addEventListener(ProgressEvent.PROGRESS, progressHandler);
+			xmlsock.addEventListener(SecurityErrorEvent.SECURITY_ERROR, securityErrorHandler);
+			xmlsock.addEventListener(DataEvent.DATA, onData); 
+			xmlsock.addEventListener(ProgressEvent.SOCKET_DATA, onData);
+			
+			// Connection to device
+			xmlsock.connect("10.1.10.112", 49191);*/
+			
 			// Add listeners for infor screen and exit buttons
 			document.getElementById("info_overlay").addEventListener(GWGestureEvent.TAP, onInfoTap);
 			document.getElementById("info_screen_icon").addEventListener(GWGestureEvent.TAP, onInfoTapExit);
@@ -223,6 +245,43 @@ package
 			fade(modelArrows, "out");
 		}
 		
+		// get xml data for fiducials
+		/*private function onData(event:DataEvent):void 
+		{ 
+			trace("Getting data");
+			trace("[" + event.type + "] " + event.data); 
+		}
+		
+		private function connectHandler(event:Event):void 
+		{ 
+			trace("[" + event.type + "] " + event.target); 
+			if (xmlsock.connected) 
+			{
+				trace("now connected");
+			}
+		}
+		
+		private function closeHandler(event:Event):void 
+		{ 
+			trace("[" + event.type + "] " + event.target); 
+		}
+		
+		private function ioErrorHandler(event:IOErrorEvent):void 
+		{ 
+			trace("[" + event.type + "] " + event.text); 
+		}
+		
+		private function progressHandler(event:ProgressEvent):void 
+		{ 
+			trace("[" + event.type + "] " + event.currentTarget); 
+			
+		}
+		
+		private function securityErrorHandler(event:SecurityErrorEvent):void 
+		{ 
+			trace("[" + event.type + "] " + event.text); 
+		}*/
+		
 		// our update function
 		private function _onUpdate( e:Event ):void
 		{
@@ -242,7 +301,7 @@ package
 			if (e.value.n == 1)
 			{
 			  var valX:Number = current_container.rotationX + e.value.drag_dy * .25;
-			  var valY:Number = current_container.rotationY + e.value.drag_dx * .25;
+			  var valY:Number = current_container.rotationY + e.value.drag_dx * -.25;
 				
 			  current_container.rotationY = valY;
 			  current_container.rotationX = valX;
@@ -253,7 +312,7 @@ package
 		{
 			if (!infoOn)
 			{
-				if (e.value.n == 5)
+				if (e.value.n == 4)
 				{
 					/*var imageScale:Number = e.target.cO.width / rotationGraphic.width;
 					
@@ -401,8 +460,8 @@ package
 					modelArrows.y = y;
 					fade(modelArrows, "in");
 					
-					valY = main.rotationY + e.value.drag_dx * .25;
-					valX = main.rotationX + e.value.drag_dy * .25;
+					valY = main.rotationY + e.value.drag_dx * -.25;
+					valX = main.rotationX + e.value.drag_dy * -.25;
 				
 					/*if (valX < minRotationX) valX = minRotationX;
 					else if (valX > maxRotationX) valX = maxRotationX;
@@ -414,7 +473,7 @@ package
 					main.rotationX = valX;
 				}
 				
-				if (e.value.n == 4)
+				if (e.value.n == 5)
 				{
 					/*imageScale = e.target.cO.width / modelGraphic.width;
 
@@ -476,8 +535,10 @@ package
 			}
 			if (!popup.visible) 
 			{
-				popup.x = this.mouseX;
-				popup.y = this.mouseY;
+				if (this.mouseX + 330 > overlay.width) popup.x = overlay.width - 330;
+				else popup.x = this.mouseX;
+				if (this.mouseY + 435 > overlay.height) popup.y = overlay.height - 435;
+				else popup.y = this.mouseY;
 
 				popup.tweenIn(); 
 			}

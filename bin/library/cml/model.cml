@@ -28,6 +28,14 @@
 				<Image width="1024" src="library/assets/sky/background_red_logos.png"/>
 			</SkyBox>
 
+			<!-- <SkyBox>
+			    <Image width="1024" src="library/assets/sky/black_background_with_logos.png"/>
+				<Image width="1024" src="library/assets/sky/black_background_with_logos.png"/>
+				<Image width="1024" src="library/assets/sky/black_background.png"/>
+				<Image width="1024" src="library/assets/sky/black_background.png"/>
+				<Image width="1024" src="library/assets/sky/black_background_with_logos.png"/>
+				<Image width="1024" src="library/assets/sky/black_background_with_logos.png"/>
+			</SkyBox> -->
 			<Light id="light-1" ref="Directional" color="0xFFFFFF" castsShadows="true" x="0" y="1000" z="0" shadowType="soft" />
 		
 			<Container3D id="main" rotationY="-55">
@@ -103,7 +111,7 @@
 				</Container3D>
 				
 				<Container3D id="container12">
-					<Model id="rod" name="shaft" src="library/assets/model/engine/chrome_rod.awd" lightPicker="lp-1" touchEnabled="true" sca=".35, .35, .35">
+					<Model id="rod" name="shaft" src="library/assets/model/engine/rod.awd" lightPicker="lp-1" touchEnabled="true" sca=".35, .35, .35">
 						<Gesture ref="n-drag-3d"/>
 						<Gesture ref="n-scale-3d"/>
 						<Gesture ref="n-rotate-3d"/>
@@ -113,7 +121,7 @@
 				</Container3D>
 				
 				<Container3D id="container13">
-					<Model id="central_fan" name="blank_placeholder" src="library/assets/model/central_fan/central_fan.awd" lightPicker="lp-1" touchEnabled="true" sca=".35, .35, .35">
+					<Model id="central_fan" name="fan" src="library/assets/model/central_fan/central_fan.awd" lightPicker="lp-1" touchEnabled="true" sca=".35, .35, .35">
 						<Gesture ref="n-drag-3d"/>
 						<Gesture ref="n-rotate-3d"/>
 						<Gesture ref="n-tap"/>
