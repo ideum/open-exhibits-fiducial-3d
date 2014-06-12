@@ -28,7 +28,7 @@
 
 	<!-- Info overlay -->
 	<Image id="info_overlay" width="75" height="75" x="1805" y="965" visible="true" src="library/assets/info/infobutton.png">
-		<Gesture ref="n-tap"/>
+		<Gesture ref="1-finger-tap"/>
 	</Image>
 
 </cml>

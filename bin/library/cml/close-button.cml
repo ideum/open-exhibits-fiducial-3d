@@ -4,7 +4,7 @@
 
 <Button id="close-btn" class="close-btns" dispatch="tap:close" hit="hit" x="280" y="8">	
 	<Graphic id="hit" alpha="0" shape="circle" radius="17" lineStroke="0" fill="0xFFFFFF"/>	
-	<Gesture ref="n-tap" />
+	<Gesture ref="1-finger-tap" />
 </Button>
 
 </cml>

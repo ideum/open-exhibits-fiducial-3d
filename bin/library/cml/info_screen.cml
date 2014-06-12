@@ -2,11 +2,11 @@
 <cml tuio="false" simulator="false" css="library/assets/styles.css">
 	
 	<Container id="info_screen" visible="true" mouseChildren="true">
-		<Gesture ref="n-tap"/>
+		<Gesture ref="1-finger-tap"/>
 		<Image width="1800" height="960" x="60" y="60" visible="true" src="library/assets/info/infoframe_with_text.png"/>
 		
 		<Image id="info_screen_icon" alpha="0" width="80" height="85" x="1750" y="100" visible="true" src="library/assets/info/exit_icon_white.png">
-			<Gesture ref="n-tap"/>
+			<Gesture ref="1-finger-tap"/>
 		</Image>
     </Container>
 	

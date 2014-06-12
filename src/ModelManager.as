@@ -153,10 +153,13 @@ package
 			overlay.clusterBubbling = true;
 			
 			// add events 
-			overlay.gestureList = { "1-finger-tap": true,
-									"n-rotate-3d": true,
-									"1-finger-drag": true, 
-									"n-scale-3d": true };
+			overlay.gestureList = { "1-finger-tap": true, //finger
+									"1-finger-drag": true, //finger
+									"2-finger-scale-3d": true, //finger
+									"4-finger-rotate-3d": true, //tag
+									"3-finger-drag": true, // tag
+									"5-finger-drag": true}; //tag
+									
 		
 			main = document.getElementById("main");
 			
@@ -194,15 +197,15 @@ package
 		
 			for (i = 0; i < models.length; i++)
 			{
-				models[i].vto.addEventListener(GWGestureEvent.DRAG, onModelDrag);
+				models[i].vto.addEventListener(GWGestureEvent.DRAG, onModelDrag); //n=1
 				models[i].vto.addEventListener(GWGestureEvent.SCALE, onScale);
 				models[i].vto.addEventListener(GWGestureEvent.TAP, onHotspotTap);
 			}
 				
 			//mainScreen.addEventListener(GWGestureEvent.TAP, onTap);
-			overlay.addEventListener(GWGestureEvent.ROTATE, onRotate);
-			overlay.addEventListener(GWGestureEvent.DRAG, onDrag);
-			overlay.addEventListener(GWGestureEvent.SCALE, onScale);
+			overlay.addEventListener(GWGestureEvent.ROTATE, onRotate); //will be TAG_ROTATE N=4
+			overlay.addEventListener(GWGestureEvent.DRAG, onDrag); // will be TAG_DRAG N=3 AND N=5
+			overlay.addEventListener(GWGestureEvent.SCALE, onScale); // WILL BE SCALE n=2
 			overlay.addEventListener(GWGestureEvent.RELEASE, clear);
 			
 			//set up socket event handlers

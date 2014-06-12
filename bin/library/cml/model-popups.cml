@@ -13,15 +13,15 @@
 		</Text>
 
 		<GestureList>
-			<Gesture ref="n-drag-inertia" gestureOn="true"/>
-			<Gesture ref="n-scale-inertia" gestureOn="true"/>
-			<Gesture ref="n-tap" gestureOn="true"/>
+			<Gesture ref="1-finger-drag" gestureOn="true"/>
+			<Gesture ref="2-finger-scale" gestureOn="true"/>
+			<Gesture ref="1-finger-tap" gestureOn="true"/>
 		</GestureList>
 	</ScrollPane>
 	
 	<Include src="library/cml/close-button.cml"/>
-	<Gesture ref="n-drag" />
-	<Gesture ref="n-tap" />
+	<Gesture ref="1-finger-drag" />
+	<Gesture ref="1-finger-tap" />
 	</ModelPopup>
 
 	
@@ -50,15 +50,15 @@
 		</Text>
 
 		<GestureList>
-			<Gesture ref="n-drag-inertia" gestureOn="true"/>
-			<Gesture ref="n-scale-inertia" gestureOn="true"/>
-			<Gesture ref="n-tap" gestureOn="true"/>
+			<Gesture ref="1-finger-drag" gestureOn="true"/>
+			<Gesture ref="2-finger-scale" gestureOn="true"/>
+			<Gesture ref="1-finger-tap" gestureOn="true"/>
 		</GestureList>
 	</ScrollPane>
 	
 	<Include src="library/cml/close-button.cml"/>
-	<Gesture ref="n-drag" />
-	<Gesture ref="n-tap" />
+	<Gesture ref="1-finger-drag" />
+	<Gesture ref="1-finger-tap" />
 	</ModelPopup>
 	
 	
@@ -76,15 +76,15 @@
 		</Text>
 
 		<GestureList>
-			<Gesture ref="n-drag-inertia" gestureOn="true"/>
-			<Gesture ref="n-scale-inertia" gestureOn="true"/>
-			<Gesture ref="n-tap" gestureOn="true"/>
+			<Gesture ref="1-finger-drag" gestureOn="true"/>
+			<Gesture ref="2-finger-scale" gestureOn="true"/>
+			<Gesture ref="1-finger-tap" gestureOn="true"/>
 		</GestureList>
 	</ScrollPane>
 	
 	<Include src="library/cml/close-button.cml"/>
-	<Gesture ref="n-drag" />
-	<Gesture ref="n-tap" />
+	<Gesture ref="1-finger-drag" />
+	<Gesture ref="1-finger-tap" />
 	</ModelPopup>
 
 		
@@ -102,15 +102,15 @@
 		</Text>
 
 		<GestureList>
-			<Gesture ref="n-drag-inertia" gestureOn="true"/>
-			<Gesture ref="n-scale-inertia" gestureOn="true"/>
-			<Gesture ref="n-tap" gestureOn="true"/>
+			<Gesture ref="1-finger-drag" gestureOn="true"/>
+			<Gesture ref="2-finger-scale" gestureOn="true"/>
+			<Gesture ref="1-finger-tap" gestureOn="true"/>
 		</GestureList>
 	</ScrollPane>
-
+	
 	<Include src="library/cml/close-button.cml"/>
-	<Gesture ref="n-drag" />
-	<Gesture ref="n-tap" />
+	<Gesture ref="1-finger-drag" />
+	<Gesture ref="1-finger-tap" />
 	</ModelPopup>
 	
 	<ModelPopup id="HighPressureCompressor" width="330" height="435" mouseChildren="true">
@@ -127,16 +127,15 @@
 		</Text>
 
 		<GestureList>
-			<Gesture ref="n-drag-inertia" gestureOn="true"/>
-			<Gesture ref="n-scale-inertia" gestureOn="true"/>
-			<Gesture ref="n-tap" gestureOn="true"/>
+			<Gesture ref="1-finger-drag" gestureOn="true"/>
+			<Gesture ref="2-finger-scale" gestureOn="true"/>
+			<Gesture ref="1-finger-tap" gestureOn="true"/>
 		</GestureList>
 	</ScrollPane>
 	
-
 	<Include src="library/cml/close-button.cml"/>
-	<Gesture ref="n-drag" />
-	<Gesture ref="n-tap" />
+	<Gesture ref="1-finger-drag" />
+	<Gesture ref="1-finger-tap" />
 	</ModelPopup>
 	
 	<ModelPopup id="bypass_ducts" width="330" height="435" mouseChildren="true">
@@ -153,15 +152,15 @@
 		</Text>
 
 		<GestureList>
-			<Gesture ref="n-drag-inertia" gestureOn="true"/>
-			<Gesture ref="n-scale-inertia" gestureOn="true"/>
-			<Gesture ref="n-tap" gestureOn="true"/>
+			<Gesture ref="1-finger-drag" gestureOn="true"/>
+			<Gesture ref="2-finger-scale" gestureOn="true"/>
+			<Gesture ref="1-finger-tap" gestureOn="true"/>
 		</GestureList>
 	</ScrollPane>
 	
 	<Include src="library/cml/close-button.cml"/>
-	<Gesture ref="n-drag" />
-	<Gesture ref="n-tap" />
+	<Gesture ref="1-finger-drag" />
+	<Gesture ref="1-finger-tap" />
 	</ModelPopup>
 	
 	
@@ -180,15 +179,15 @@
 		</Text>
 
 		<GestureList>
-			<Gesture ref="n-drag-inertia" gestureOn="true"/>
-			<Gesture ref="n-scale-inertia" gestureOn="true"/>
-			<Gesture ref="n-tap" gestureOn="true"/>
+			<Gesture ref="1-finger-drag" gestureOn="true"/>
+			<Gesture ref="2-finger-scale" gestureOn="true"/>
+			<Gesture ref="1-finger-tap" gestureOn="true"/>
 		</GestureList>
 	</ScrollPane>
 	
 	<Include src="library/cml/close-button.cml"/>
-	<Gesture ref="n-drag" />
-	<Gesture ref="n-tap" />
+	<Gesture ref="1-finger-drag" />
+	<Gesture ref="1-finger-tap" />
 	</ModelPopup>
 			
 	<!-- <ModelPopup id="combustor" width="330" height="435" mouseChildren="true">
@@ -206,15 +205,15 @@
 		</Text>
 
 		<GestureList>
-			<Gesture ref="n-drag-inertia" gestureOn="true"/>
-			<Gesture ref="n-scale-inertia" gestureOn="true"/>
-			<Gesture ref="n-tap" gestureOn="true"/>
+			<Gesture ref="1-finger-drag" gestureOn="true"/>
+			<Gesture ref="2-finger-scale" gestureOn="true"/>
+			<Gesture ref="1-finger-tap" gestureOn="true"/>
 		</GestureList>
 	</ScrollPane>
 	
 	<Include src="library/cml/close-button.cml"/>
-	<Gesture ref="n-drag" />
-	<Gesture ref="n-tap" />
+	<Gesture ref="1-finger-drag" />
+	<Gesture ref="1-finger-tap" />
 	</ModelPopup>
 	
 	<ModelPopup id="LowPressureTurbine" width="330" height="435" mouseChildren="true">
@@ -235,15 +234,15 @@
 		</Text>
 
 		<GestureList>
-			<Gesture ref="n-drag-inertia" gestureOn="true"/>
-			<Gesture ref="n-scale-inertia" gestureOn="true"/>
-			<Gesture ref="n-tap" gestureOn="true"/>
+			<Gesture ref="1-finger-drag" gestureOn="true"/>
+			<Gesture ref="2-finger-scale" gestureOn="true"/>
+			<Gesture ref="1-finger-tap" gestureOn="true"/>
 		</GestureList>
 	</ScrollPane>
 	
 	<Include src="library/cml/close-button.cml"/>
-	<Gesture ref="n-drag" />
-	<Gesture ref="n-tap" />
+	<Gesture ref="1-finger-drag" />
+	<Gesture ref="1-finger-tap" />
 	</ModelPopup> 
 	
 	<ModelPopup id="HighPressureTurbine" width="330" height="435" mouseChildren="true">
@@ -264,16 +263,17 @@
 		</Text>
 
 		<GestureList>
-			<Gesture ref="n-drag-inertia" gestureOn="true"/>
-			<Gesture ref="n-scale-inertia" gestureOn="true"/>
-			<Gesture ref="n-tap" gestureOn="true"/>
+			<Gesture ref="1-finger-drag" gestureOn="true"/>
+			<Gesture ref="2-finger-scale" gestureOn="true"/>
+			<Gesture ref="1-finger-tap" gestureOn="true"/>
 		</GestureList>
 	</ScrollPane>
 	
 	<Include src="library/cml/close-button.cml"/>
-	<Gesture ref="n-drag" />
-	<Gesture ref="n-tap" />
+	<Gesture ref="1-finger-drag" />
+	<Gesture ref="1-finger-tap" />
 	</ModelPopup>
+	
 	
 	<ModelPopup id="flame_holder" width="330" height="435" mouseChildren="true">
 	<Image width="325" height="433" src="library/assets/hotspots/infobox.png"/>
@@ -290,15 +290,15 @@
 		</Text>
 		
 		<GestureList>
-			<Gesture ref="n-drag-inertia" gestureOn="true"/>
-			<Gesture ref="n-scale-inertia" gestureOn="true"/>
-			<Gesture ref="n-tap" gestureOn="true"/>
+			<Gesture ref="1-finger-drag" gestureOn="true"/>
+			<Gesture ref="2-finger-scale" gestureOn="true"/>
+			<Gesture ref="1-finger-tap" gestureOn="true"/>
 		</GestureList>
 	</ScrollPane>
 	
 	<Include src="library/cml/close-button.cml"/>
-	<Gesture ref="n-drag" />
-	<Gesture ref="n-tap" />
+	<Gesture ref="1-finger-drag" />
+	<Gesture ref="1-finger-tap" />
 	</ModelPopup> -->
 
 </cml>
