@@ -16,7 +16,7 @@
     </define>
     <define append="true">
       <name>CONFIG::timeStamp</name>
-      <value>'6/11/2014'</value>
+      <value>'6/13/2014'</value>
     </define>
     <define append="true">
       <name>CONFIG::air</name>
@@ -33,20 +33,20 @@
     <verbose-stacktraces>true</verbose-stacktraces>
     <source-path append="true">
       <path-element>C:\repo\open-exhibits-fiducial-3d\src</path-element>
-      <path-element>C:\repo\away3d-core-fp11\src</path-element>
-      <path-element>C:\repo\lib</path-element>
       <path-element>C:\repo\gestureworks-flash-cml</path-element>
       <path-element>C:\repo\gestureworks-flash-gml</path-element>
       <path-element>C:\repo\gestureworks-flash-away3d</path-element>
+      <path-element>C:\repo\lib</path-element>
       <path-element>C:\Program Files (x86)\FlashDevelop\Library\AS3\classes</path-element>
     </source-path>
     <library-path append="true">
-      <path-element>C:\repo\lib\TUIO_AS3.swc</path-element>
-      <path-element>C:\repo\lib\LeapMotionAS3.swc</path-element>
-      <path-element>C:\repo\lib\cml_ext.swc</path-element>
-      <path-element>C:\repo\lib\gml_ext.swc</path-element>
-      <path-element>C:\repo\lib\gui.swc</path-element>
+      <path-element>C:\repo\gestureworks-flash-gml\lib\gml_ext.swc</path-element>
+      <path-element>C:\repo\gestureworks-flash-gml\lib\WiiFlash.swc</path-element>
+      <path-element>C:\repo\gestureworks-flash-cml\lib\textLayout.swc</path-element>
+      <path-element>C:\repo\gestureworks-flash-cml\lib\gui.swc</path-element>
+      <path-element>C:\repo\gestureworks-flash-cml\lib\cml_ext.swc</path-element>
       <path-element>C:\repo\lib\away3d-core-fp11_4_1_4.swc</path-element>
+      <path-element>C:\repo\lib\greensock.swc</path-element>
     </library-path>
   </compiler>
   <file-specs>

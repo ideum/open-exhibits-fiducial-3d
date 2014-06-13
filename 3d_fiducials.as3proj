@@ -16,11 +16,10 @@
   <!-- Other classes to be compiled into your SWF -->
   <classpaths>
     <class path="src" />
-    <class path="..\away3d-core-fp11\src" />
-    <class path="..\lib" />
     <class path="..\gestureworks-flash-cml" />
     <class path="..\gestureworks-flash-gml" />
     <class path="..\gestureworks-flash-away3d" />
+    <class path="..\lib" />
   </classpaths>
   <!-- Build options -->
   <build>
@@ -57,14 +56,13 @@
   </includeLibraries>
   <!-- SWC Libraries -->
   <libraryPaths>
-    <element path="..\lib\GestureWorksGML_4.1.0.swc" />
-    <element path="..\lib\TUIO_AS3.swc" />
-    <element path="..\lib\LeapMotionAS3.swc" />
-    <element path="..\lib\cml_ext.swc" />
-    <element path="..\lib\gml_ext.swc" />
-    <element path="..\lib\gui.swc" />
-    <element path="..\lib\texLayout.swc" />
+    <element path="..\gestureworks-flash-gml\lib\gml_ext.swc" />
+    <element path="..\gestureworks-flash-gml\lib\WiiFlash.swc" />
+    <element path="..\gestureworks-flash-cml\lib\textLayout.swc" />
+    <element path="..\gestureworks-flash-cml\lib\gui.swc" />
+    <element path="..\gestureworks-flash-cml\lib\cml_ext.swc" />
     <element path="..\lib\away3d-core-fp11_4_1_4.swc" />
+    <element path="..\lib\greensock.swc" />
   </libraryPaths>
   <!-- External Libraries -->
   <externalLibraryPaths>

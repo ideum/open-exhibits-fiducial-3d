@@ -182,7 +182,7 @@
 							</mapping>
 						</Gesture>
 		
-	<Gesture_set/>
+	</Gesture_set>
 	
 	<Gesture_set gesture_set_name="custom-tag-touch-gestures">
 		
