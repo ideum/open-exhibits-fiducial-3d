@@ -8,11 +8,11 @@
   <compiler>
     <define append="true">
       <name>CONFIG::debug</name>
-      <value>true</value>
+      <value>false</value>
     </define>
     <define append="true">
       <name>CONFIG::release</name>
-      <value>false</value>
+      <value>true</value>
     </define>
     <define append="true">
       <name>CONFIG::timeStamp</name>
@@ -30,27 +30,24 @@
       <name>CONFIG::desktop</name>
       <value>false</value>
     </define>
-    <verbose-stacktraces>true</verbose-stacktraces>
+    <optimize>true</optimize>
+    <omit-trace-statements>true</omit-trace-statements>
+    <verbose-stacktraces>false</verbose-stacktraces>
     <source-path append="true">
-      <path-element>C:\repo\open-exhibits-fiducial-3d\src</path-element>
-      <path-element>C:\repo\gestureworks-flash-cml</path-element>
-      <path-element>C:\repo\gestureworks-flash-gml</path-element>
-      <path-element>C:\repo\gestureworks-flash-away3d</path-element>
-      <path-element>C:\repo\lib</path-element>
+      <path-element>C:\Users\Paul\Documents\GitHub\open-exhibits-fiducial-3d\src</path-element>
+      <path-element>C:\Users\Paul\Documents\GitHub\gestureworks-flash-cml</path-element>
+      <path-element>C:\Users\Paul\Documents\GitHub\gestureworks-flash-gml</path-element>
+      <path-element>C:\Users\Paul\Documents\GitHub\gestureworks-flash-away3d</path-element>
       <path-element>C:\Program Files (x86)\FlashDevelop\Library\AS3\classes</path-element>
     </source-path>
     <library-path append="true">
-      <path-element>C:\repo\gestureworks-flash-gml\lib\gml_ext.swc</path-element>
-      <path-element>C:\repo\gestureworks-flash-gml\lib\WiiFlash.swc</path-element>
-      <path-element>C:\repo\gestureworks-flash-cml\lib\textLayout.swc</path-element>
-      <path-element>C:\repo\gestureworks-flash-cml\lib\gui.swc</path-element>
-      <path-element>C:\repo\gestureworks-flash-cml\lib\cml_ext.swc</path-element>
-      <path-element>C:\repo\lib\away3d-core-fp11_4_1_4.swc</path-element>
-      <path-element>C:\repo\lib\greensock.swc</path-element>
+      <path-element>C:\Users\Paul\Documents\GitHub\gestureworks-flash-gml\lib\gml_ext.swc</path-element>
+      <path-element>C:\Users\Paul\Documents\GitHub\gestureworks-flash-gml\lib\WiiFlash.swc</path-element>
+      <path-element>C:\Users\Paul\Documents\GitHub\gestureworks-flash-cml\lib\cml_ext.swc</path-element>
     </library-path>
   </compiler>
   <file-specs>
-    <path-element>C:\repo\open-exhibits-fiducial-3d\src\Main.as</path-element>
+    <path-element>C:\Users\Paul\Documents\GitHub\open-exhibits-fiducial-3d\src\Main.as</path-element>
   </file-specs>
   <default-background-color>#FFFFFF</default-background-color>
   <default-frame-rate>30</default-frame-rate>
