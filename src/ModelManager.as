@@ -114,8 +114,9 @@ package
 		private var cameraArrows:Container = document.getElementById("cameraArrows");
 		private var modelArrows:Container = document.getElementById("modelArrows");
 
-		// Elements for info screen 
+		// Elements for info screen and reset button 
 		private var info_overlay:Image = document.getElementById("info_overlay");
+		private var reset_overlay:Image = document.getElementById("reset_overlay");
 		private var info_screen:Container = document.getElementById("info_screen");
 		private var info_screen_exit:Image = document.getElementById("info_screen_icon");
 		
@@ -208,8 +209,9 @@ package
 			overlay.addEventListener(GWGestureEvent.SCALE, onScale); // WILL BE SCALE n=2
 			overlay.addEventListener(GWGestureEvent.RELEASE, clear);
 			
-			// Add listeners for infor screen and exit buttons
+			// Add listeners for infor screen, exit button and reset button
 			document.getElementById("info_overlay").addEventListener(GWGestureEvent.TAP, onInfoTap);
+			document.getElementById("reset_overlay").addEventListener(GWGestureEvent.TAP, resetScreen);
 			document.getElementById("info_screen_icon").addEventListener(GWGestureEvent.TAP, onInfoTapExit);
 			
 			// add event listener to every frame for animations
@@ -229,6 +231,7 @@ package
 			overlay.addChild(cameraArrows);
 			overlay.addChild(modelArrows);
 			overlay.addChild(info_overlay);
+			overlay.addChild(reset_overlay);
 			
 			// Set initial state of UI elements
 			fade(rotation_dial, "out");
@@ -260,14 +263,22 @@ package
 				
 			  current_container.rotationY = valY;
 			  current_container.rotationX = valX;*/
-			  
+			  trace("CurrentX =" + current_container.x);
+			  trace("CurrentY =" + current_container.y);
+			  trace("CurrentX =" + current_container.scaleX);
+			  trace("CurrentY =" + current_container.scaleY);
 			  // opted to translate models based on touch, as opposed to 
 			  // rotating them individually
-			  var valX:Number = current_container.x + e.value.drag_dx;
-			  var valY:Number = current_container.y + e.value.drag_dy;
+			  var valX:Number = current_container.x + (int)(e.value.drag_dxi * .1);
+			  var valY:Number = current_container.y + (int)(e.value.drag_dy * .1);
 				
 			  current_container.y = valY;
 			  current_container.x = valX;
+			  
+			  trace("newX =" + current_container.x);
+			  trace("newY =" + current_container.y);
+			  trace("ScaleX =" + current_container.scaleX);
+			  trace("ScaleY =" + current_container.scaleY);
 			}
 		}
 		
@@ -523,18 +534,23 @@ package
 				
 		private function reOrderContainers():void
 		{
+			
 			for (var i:int = 0; i < containers.length; i++) 
 			{
 				// return all containers other than the camera, main model container and light 
 				// back to original starting coordinates
-				if (containers[i].id != "main" && containers[i].id != "main_cam" && containers[i].id != "light-1") 
+				if (containers[i].id != "main_cam" && containers[i].id != "light-1") 
 				{
 					trace("Container = " + containers[i].id  + ", z location = ", + containers[i].z);
-					TweenLite.to(containers[i], 3, { rotationX:0 } );
-					TweenLite.to(containers[i], 3, { rotationY:0 } );
-					TweenLite.to(containers[i], 3, { rotationZ:0 } );
-					TweenLite.to(containers[i], 3, { x:0 } );
-					TweenLite.to(containers[i], 3, { y:0 } );
+					TweenLite.to(containers[i], 1, { rotationX:0 } );
+					if (containers[i].id == "main")
+					{
+						TweenLite.to(containers[i], 1, { rotationY:-55 } );
+					}
+					else TweenLite.to(containers[i], 1, { rotationY:0 } );
+					TweenLite.to(containers[i], 1, { rotationZ:0 } );
+					TweenLite.to(containers[i], 1, { x:0 } );
+					TweenLite.to(containers[i], 1, { y:0 } );
 					TweenLite.to(containers[i], 1, { z:0 } );
 				}
 			}
@@ -545,8 +561,8 @@ package
 			for (var i:int = 0; i < whole_model.numChildren; i++) 
 			{
 				// return all radial elements to the center
-				TweenLite.to(whole_model.getChildAt(i), 3, { y:0 } );
-				TweenLite.to(whole_model.getChildAt(i), 3, { z:0 } );
+				TweenLite.to(whole_model.getChildAt(i), 1, { y:0 } );
+				TweenLite.to(whole_model.getChildAt(i), 1, { z:0 } );
 			}
 		}	
 		
@@ -630,8 +646,35 @@ package
 			}
 		}
 		
+		private function resetScreen(e:GWGestureEvent = null):void
+		{
+			clearPopups();
+			clear();
+		    reOrderContainers();
+			implodeRadialModelYZ(rotor1);
+			implodeRadialModelYZ(rotor2);
+			implodeRadialModelYZ(rotor3);
+			implodeRadialModelYZ(pipes);
+			implodeRadialModelYZ(outerShell);
+			implodeRadialModelYZ(backShell);
+			implodeRadialModelYZ(centralShell);
+			implodeRadialModelYZ(innerShell);
+			implodeRadialModelYZ(combustionChamber);
+			resetCamera();
+		}
+		
 		private function viewerBasedTranslation(currentModel:Model, distanceX:Number, distanceY:Number):void
 		{
+			
+		}
+		
+		private function resetCamera(e:GWGestureEvent = null):void
+		{
+			TweenLite.to(cam, 1, { rotationY:0 } );
+			TweenLite.to(cam, 1, { rotationX:0 } );
+			TweenLite.to(cam, 1, { x:0 } );
+			TweenLite.to(cam, 1, { y:200 } );
+			TweenLite.to(cam, 1, { z:-1500 } );
 			
 		}
 	}		
