@@ -114,6 +114,47 @@
 			</mapping>
 		</Gesture>
 		
+		<Gesture id="3-finger-drag-3d" type="drag">
+			<match>
+				<action>
+					<initial>
+						<cluster point_number="1" point_number_min="1" point_number_max="1"/>
+					</initial>
+				</action>
+			</match>	
+			<analysis>
+				<algorithm class="kinemetric" type="continuous">
+					<library module="drag"/>
+					<returns>
+						<property id="drag_dx" result="dx"/>
+						<property id="drag_dy" result="dy"/>
+						<property id="drag_dz" result="dz"/>
+					</returns>
+				</algorithm>
+			</analysis>	
+			<processing>
+				<inertial_filter>
+					<property ref="drag_dx" active="true" friction="0.9"/>
+					<property ref="drag_dy" active="true" friction="0.9"/>
+					<property ref="drag_dz" active="true" friction="0.9"/>
+				</inertial_filter>
+				<delta_filter>
+					<property ref="drag_dx" active="true" delta_min="0" delta_max="500"/>
+					<property ref="drag_dy" active="true" delta_min="0" delta_max="500"/>
+					<property ref="drag_dz" active="true" delta_min="0" delta_max="500"/>
+				</delta_filter>						
+			</processing>
+			<mapping>
+				<update dispatch_type="continuous">
+					<gesture_event type="drag">
+						<property ref="drag_dx" target="x"/>
+						<property ref="drag_dy" target="y"/>
+						<property ref="drag_dz" target="z"/>
+					</gesture_event>
+				</update>
+			</mapping>
+		</Gesture>
+		
 		<Gesture id="2-finger-scale" type="scale">
 			<match>
 				<action>

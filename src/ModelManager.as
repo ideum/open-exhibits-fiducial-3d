@@ -153,9 +153,9 @@ package
 			overlay.clusterBubbling = true;
 			
 			// add events 
-			overlay.gestureList = { "1-finger-tap": true, //finger
-									"1-finger-drag": true, //finger
-									"2-finger-scale-3d": true, //finger
+			overlay.gestureList = { "1-finger-tap": false, //finger
+									"1-finger-drag": false, //finger
+									"2-finger-scale-3d": false, //finger
 									"4-tag-rotate-3d": true, //tag
 									"3-tag-drag-3d": true, // tag
 									"5-tag-drag-3d": true}; //tag
