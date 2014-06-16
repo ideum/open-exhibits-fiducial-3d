@@ -208,18 +208,6 @@ package
 			overlay.addEventListener(GWGestureEvent.SCALE, onScale); // WILL BE SCALE n=2
 			overlay.addEventListener(GWGestureEvent.RELEASE, clear);
 			
-			//set up socket event handlers
-			/*xmlsock.addEventListener(Event.CONNECT, connectHandler);
-			xmlsock.addEventListener(Event.CLOSE, closeHandler);
-			xmlsock.addEventListener(IOErrorEvent.IO_ERROR, ioErrorHandler);
-			xmlsock.addEventListener(ProgressEvent.PROGRESS, progressHandler);
-			xmlsock.addEventListener(SecurityErrorEvent.SECURITY_ERROR, securityErrorHandler);
-			xmlsock.addEventListener(DataEvent.DATA, onData); 
-			xmlsock.addEventListener(ProgressEvent.SOCKET_DATA, onData);
-			
-			// Connection to device
-			xmlsock.connect("10.1.10.112", 49191);*/
-			
 			// Add listeners for infor screen and exit buttons
 			document.getElementById("info_overlay").addEventListener(GWGestureEvent.TAP, onInfoTap);
 			document.getElementById("info_screen_icon").addEventListener(GWGestureEvent.TAP, onInfoTapExit);
@@ -247,43 +235,6 @@ package
 			fade(cameraArrows, "out");
 			fade(modelArrows, "out");
 		}
-		
-		// get xml data for fiducials
-		/*private function onData(event:DataEvent):void 
-		{ 
-			trace("Getting data");
-			trace("[" + event.type + "] " + event.data); 
-		}
-		
-		private function connectHandler(event:Event):void 
-		{ 
-			trace("[" + event.type + "] " + event.target); 
-			if (xmlsock.connected) 
-			{
-				trace("now connected");
-			}
-		}
-		
-		private function closeHandler(event:Event):void 
-		{ 
-			trace("[" + event.type + "] " + event.target); 
-		}
-		
-		private function ioErrorHandler(event:IOErrorEvent):void 
-		{ 
-			trace("[" + event.type + "] " + event.text); 
-		}
-		
-		private function progressHandler(event:ProgressEvent):void 
-		{ 
-			trace("[" + event.type + "] " + event.currentTarget); 
-			
-		}
-		
-		private function securityErrorHandler(event:SecurityErrorEvent):void 
-		{ 
-			trace("[" + event.type + "] " + event.text); 
-		}*/
 		
 		// our update function
 		private function _onUpdate( e:Event ):void
@@ -677,6 +628,11 @@ package
 					popups[i].tweenOut();
 				}
 			}
+		}
+		
+		private function viewerBasedTranslation(currentModel:Model, distanceX:Number, distanceY:Number):void
+		{
+			
 		}
 	}		
 }
