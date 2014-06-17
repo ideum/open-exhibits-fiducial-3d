@@ -71,7 +71,7 @@ package
 		//Controller for keeping the object in view
 		private var cameraController:HoverController;	
         private var light:DirectionalLight;
-		private var view:Object;
+		private var view:View3D;
 		private var scene:Scene;
 		
 		// set to true for debugging purposes
@@ -151,7 +151,7 @@ package
 		public function init():void 
 		{	
 			scene = document.getElementById("main_scene");
-			view = scene.getChildAt(0);
+			//view = scene.getChildAt(0);
 			
 			// get model
 			model_container = document.getElementById("model_container");
@@ -482,7 +482,7 @@ package
 					main.rotationY = valY;
 					main.rotationX = valX;
 				}*/
-				if (e.value.n == 5)
+				if (e.value.n == 3)
 				{
 					// redraw camera arrows at fiducial location
 					x = e.value.localX;
