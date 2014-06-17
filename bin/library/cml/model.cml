@@ -5,9 +5,9 @@
 	
 		<!-- <LightPicker id="lp-1" lights="light-1, light-2, light-3" /> -->
 		<LightPicker id="lp-1" lights="light-1" />
-
+ 
 		<Scene id="main_scene" bgcolor="0x3E5167">
-			<Camera id="main_cam" x="0" y="200" z="-1500" lens="prospective" color="0x3E5167"/>
+			<Camera id="main_cam" x="0" y="250" z="-1500" lens="prospective" color="0x3E5167"/>
 			<!-- <Camera id="main_cam" pos="0,0,-1000" lens="orthographic" color="0x444444" /> -->
 			 
 			<!-- Initial skybox for reference
@@ -17,7 +17,7 @@
 				<Image width="1024" src="library/assets/sky/background_2048_top.png"/>
 				<Image width="1024" src="library/assets/sky/background_2048_bottom.png"/>
 				<Image width="1024" src="library/assets/sky/background_2048_center_logo.png"/>
-				<Image width="1024" src="library/assets/sky/background_2048_back_logo.png"/>
+				<Image width="1024" src="library/assets/sky/background_2048_back_logo.png"/> 
 			</SkyBox> -->
 			
 			<SkyBox>

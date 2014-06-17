@@ -156,7 +156,7 @@ package
 			// add events 
 			overlay.gestureList = { "1-finger-tap": false, //finger
 									"1-finger-drag": false, //finger
-									"2-finger-scale-3d": false, //finger
+									"2-finger-scale": true, //finger
 									"4-tag-rotate-3d": true, //tag
 									"3-tag-drag-3d": true, // tag
 									"5-tag-drag-3d": true}; //tag
@@ -199,7 +199,7 @@ package
 			for (i = 0; i < models.length; i++)
 			{
 				models[i].vto.addEventListener(GWGestureEvent.DRAG, onModelDrag); //n=1
-				models[i].vto.addEventListener(GWGestureEvent.SCALE, onScale);
+				//models[i].vto.addEventListener(GWGestureEvent.SCALE, onScale);
 				models[i].vto.addEventListener(GWGestureEvent.TAP, onHotspotTap);
 			}
 				
@@ -265,20 +265,17 @@ package
 			  current_container.rotationX = valX;*/
 			  trace("CurrentX =" + current_container.x);
 			  trace("CurrentY =" + current_container.y);
-			  trace("CurrentX =" + current_container.scaleX);
-			  trace("CurrentY =" + current_container.scaleY);
-			  // opted to translate models based on touch, as opposed to 
-			  // rotating them individually
-			  var valX:Number = current_container.x + (int)(e.value.drag_dxi * .1);
+			  
+			  // translate teh model in 
+			  var valX:Number = current_container.x + (int)(e.value.drag_dx * .1);
 			  var valY:Number = current_container.y + (int)(e.value.drag_dy * .1);
+			  //var valY:Number = current_container.z + (int)(e.value.drag_dy * .1);
 				
 			  current_container.y = valY;
 			  current_container.x = valX;
 			  
 			  trace("newX =" + current_container.x);
 			  trace("newY =" + current_container.y);
-			  trace("ScaleX =" + current_container.scaleX);
-			  trace("ScaleY =" + current_container.scaleY);
 			}
 		}
 		
@@ -460,9 +457,10 @@ package
 		
 		private function onScale(e:GWGestureEvent):void
 		{
+			trace("scaling");
 			if (!infoOn)
 			{
-				var val:Number = main.scaleX + e.value.scale_dsx * .75;
+				var val:Number = main.scaleX + e.value.scale_dsx * .5;
 				if (val < minScale) val = minScale;
 				else if (val > maxScale) val = maxScale;
 				
@@ -674,7 +672,11 @@ package
 			TweenLite.to(cam, 1, { rotationX:0 } );
 			TweenLite.to(cam, 1, { x:0 } );
 			TweenLite.to(cam, 1, { y:200 } );
-			TweenLite.to(cam, 1, { z:-1500 } );
+			TweenLite.to(cam, 1, { z: -1500 } );
+			
+			TweenLite.to(main, 1, { scaleX: 1 } );
+			TweenLite.to(main, 1, { scaleY: 1 } );
+			TweenLite.to(main, 1, { scaleZ: 1 } );
 			
 		}
 	}		
