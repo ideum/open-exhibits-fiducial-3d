@@ -136,7 +136,6 @@ package
  
 		public function init():void 
 		{
-			
 			// Construct main screen and gesture enabling
 			stage.addChild(overlay);
 			
@@ -199,7 +198,6 @@ package
 			for (i = 0; i < models.length; i++)
 			{
 				models[i].vto.addEventListener(GWGestureEvent.DRAG, onModelDrag); //n=1
-				//models[i].vto.addEventListener(GWGestureEvent.SCALE, onScale);
 				models[i].vto.addEventListener(GWGestureEvent.TAP, onHotspotTap);
 			}
 				
@@ -258,25 +256,6 @@ package
 			if (e.value.n == 1)
 			{
 			  viewerBasedTranslation(current_container, e.value.drag_dx, e.value.drag_dy);
-			  /* code for rotating individual model pieces	
-			  var valX:Number = current_container.rotationX + e.value.drag_dy * .25;
-			  var valY:Number = current_container.rotationY + e.value.drag_dx * -.25;
-				
-			  current_container.rotationY = valY;
-			  current_container.rotationX = valX;
-			  trace("CurrentX =" + current_container.x);
-			  trace("CurrentY =" + current_container.y);
-			  
-			  // translate teh model in 
-			  var valX:Number = current_container.x + (int)(e.value.drag_dx * .1);
-			  var valY:Number = current_container.y + (int)(e.value.drag_dy * .1);
-			  //var valY:Number = current_container.z + (int)(e.value.drag_dy * .1);
-				
-			  current_container.y = valY;
-			  current_container.x = valX;
-			  
-			  trace("newX =" + current_container.x);
-			  trace("newY =" + current_container.y);*/
 			}
 		}
 		
@@ -630,10 +609,7 @@ package
 			}
 		}
 	
-		private function radians(degrees:Number):Number
-		{
-			return degrees * Math.PI / 180;
-		}
+		
 		
 		private function clear(e:GWGestureEvent=null):void
 		{
@@ -675,6 +651,20 @@ package
 			trace("X change = " + distanceX);
 			trace("Y change = " + distanceY);
 			trace("Container = " + currentContainer.id);
+						  
+			// translate each model, based on orientation
+			var valZ:Number = currentContainer.z + (int)(distanceX * .1 * (cam.rotationY/90));
+			var valX:Number = currentContainer.x + (int)(distanceX * .1 * (1 - cam.rotationY/90));
+			var valY:Number = currentContainer.y + (int)(distanceY * .1);
+			
+			//var valY:Number = current_container.z + (int)(e.value.drag_dy * .1);
+			currentContainer.y = valY;
+			currentContainer.x = valX;
+			currentContainer.z = valZ;
+			  
+			trace("newX =" + currentContainer.x);
+			trace("newY =" + currentContainer.y);
+			trace("newZ =" + currentContainer.z);
 			
 		}
 		
@@ -689,7 +679,11 @@ package
 			TweenLite.to(main, 1, { scaleX: 1 } );
 			TweenLite.to(main, 1, { scaleY: 1 } );
 			TweenLite.to(main, 1, { scaleZ: 1 } );
-			
+		}
+		
+		private function radians(degrees:Number):Number
+		{
+			return degrees * Math.PI / 180;
 		}
 	}		
 }
