@@ -1,13 +1,24 @@
 package  
 {
-	import away3d.cameras.Camera3D;
 	import away3d.containers.ObjectContainer3D;
-	import away3d.containers.Scene3D;
+	import com.gestureworks.cml.away3d.elements.Scene;
 	import away3d.containers.View3D;
 	import away3d.debug.AwayStats;
 	import away3d.core.partition.SkyBoxNode;
 	import away3d.primitives.SkyBox;
 	import away3d.textures.BitmapTexture;
+	import away3d.controllers.HoverController;
+	import away3d.lights.DirectionalLight;
+	import com.gestureworks.cml.elements.View;
+	import com.gestureworks.objects.ClusterObject;
+
+	import away3d.debug.Trident;
+	import away3d.entities.Mesh;
+	import away3d.lights.PointLight;
+	import away3d.materials.ColorMaterial;
+	import away3d.materials.lightpickers.StaticLightPicker;
+	import away3d.primitives.CubeGeometry;
+	
 	import com.adobe.air.crypto.EncryptionKeyGenerator;
 	import com.gestureworks.cml.away3d.elements.Camera;
 	import away3d.entities.Mesh;
@@ -33,7 +44,7 @@ package
 	import com.greensock.plugins.ShortRotationPlugin;
 	import com.greensock.plugins.TweenPlugin;
 	import flash.display.Sprite;
-	
+
 	// Get network and flash events
 	import flash.events.Event;
 	import flash.events.IOErrorEvent;
@@ -43,6 +54,7 @@ package
 	
 	import flash.geom.Vector3D;
 	import flash.geom.ColorTransform;
+	import flash.geom.Point;
 	import com.greensock.TweenLite;
 	import com.greensock.plugins.*;
 	import flash.utils.Timer;
@@ -56,10 +68,12 @@ package
 	
 	public class ModelManager extends Sprite 
 	{ 	
-		//
-		//public var xmlsock:Socket = new Socket(); 
-	
-        
+		//Controller for keeping the object in view
+		private var cameraController:HoverController;	
+        private var light:DirectionalLight;
+		private var view:Object;
+		private var scene:Scene;
+		
 		// set to true for debugging purposes
 		private var debug:Boolean = false;
 		
@@ -75,7 +89,6 @@ package
 		
 		//private var rotationGraphicBackward:Image;
 		private var modelGraphic:Image;
-		
 		private var main:ObjectContainer3D;
 
 		// specific models for complex radial transform operations
@@ -127,6 +140,7 @@ package
 		private var secTimer:Timer = new Timer(1000, 1);
 		
 		private var infoOn:Boolean = false;
+		private var first:Boolean = true;
 	
 		public function ModelManager() 
 		{
@@ -135,15 +149,26 @@ package
 		}
  
 		public function init():void 
-		{
-			// Construct main screen and gesture enabling
-			stage.addChild(overlay);
+		{	
+			scene = document.getElementById("main_scene");
+			view = scene.getChildAt(0);
 			
 			// get model
 			model_container = document.getElementById("model_container");
+
+            // Construct main screen and gesture enabling
+			stage.addChild(overlay);
 			
 			//Get Camera from scene
 			cam = document.getElementById("main_cam");
+			cam.clipping = "20,5000";
+			light = document.getElementById("light-1");
+			
+			// create camera controller
+			cameraController = new HoverController( cam, null, 0, 0, -1500);
+			cameraController.yFactor = 1;
+			cameraController.wrapPanAngle = true;				
+			//cameraController.lookAtPosition = new Vector3D(-500+Math.random()*500, -500+Math.random()*500, -500+Math.random()*500);
 			
 			// Add model to 3D scene 
 			overlay.addChild(model_container);
@@ -246,17 +271,61 @@ package
 
 			// up our count
 			rotation_dial.rotationZ = dialValue;
+			
+			//point light at camera's view
+			light.direction = cam.forwardVector;
 		}
 		
 		private function onModelDrag(e:GWGestureEvent):void 
 		{
-			var current_model:Model = document.getElementById(e.target.id);
+			/*var clusterObject:ClusterObject = e.target.cO;
+			trace(clusterObject.x, clusterObject.y);
+			
+			var pt1:Point = new Point(clusterObject.x, clusterObject.y);
+			var pt2:Point;
+			
+			if (!first) pt2 = new Point(clusterObject.history[0].x, clusterObject.history[0].y);
+			else 
+			{
+				pt2 = new Point(clusterObject.x, clusterObject.y);
+				first = false;
+			}
+			
+			trace(pt1);
+			trace(pt2);
+			
+			var v1:Vector3D = view.unproject(pt1.x, pt1.y, e.target.distance);
+			var v2:Vector3D = view.unproject(pt2.x, pt2.y, e.target.distance);
+			
+			trace(v1);
+			trace(v2);
+			
+			//var v:Vector3D = view.unproject(e.value.stageX, e.value.stageY, e.target.distance);
+			//var cubeParentMtxInv:Matrix3D = cube.parent.inverseSceneTransform;
+			//v1 = cubeParentMtxInv.transformVector(v1);
+			//v2 = cubeParentMtxInv.transformVector(v2);
+			
+			var dx:Number = v1.x - v2.x;
+			var dy:Number = v1.y - v2.y;
+			var dz:Number = v1.z - v2.z;
+			
+			e.target.parent.x += dx;
+			e.target.parent.y += dy;
+			e.target.parent.z += dz;
+			
+			//cube.position = new Vector3D(dx, dy, dz);
+			
+			trace(e.target.parent.position);
+			//newV = new Vector3D(e.value.stageX, e.value.stageY, e.target.distance);
+			
+			
+			/*var current_model:Model = document.getElementById(e.target.id);
 			var current_container:ObjectContainer3D = current_model.parent;
 
 			if (e.value.n == 1)
 			{
 			  viewerBasedTranslation(current_container, e.value.drag_dx, e.value.drag_dy);
-			}
+			}*/
 		}
 		
 		private function onRotate(e:GWGestureEvent):void 
@@ -394,7 +463,7 @@ package
 			
 			if (!infoOn)
 			{
-				if (e.value.n == 3)
+				/*if (e.value.n == 3)
 				{
 					// redraw model rotate arrows at fiducial location
 					x = e.value.localX;
@@ -412,8 +481,8 @@ package
 				
 					main.rotationY = valY;
 					main.rotationX = valX;
-				}
-				else if (e.value.n == 5)
+				}*/
+				if (e.value.n == 5)
 				{
 					// redraw camera arrows at fiducial location
 					x = e.value.localX;
@@ -425,19 +494,8 @@ package
 					fade(rotation_dial, "out");
 					fade(modelArrows, "out");
 					
-					// get current camera rotation and apply new change in rotation
-					valY = cam.rotationY + e.value.drag_dx * .25;
-					valX = cam.rotationX + e.value.drag_dy * .25;
-				
-					// limit the range of motion of the camera
-					if (valX < minRotationX) valX = minRotationX;
-					else if (valX > maxRotationX) valX = maxRotationX;
-					
-					if (valY < minRotationY) valY = minRotationY;
-					else if (valY > maxRotationY) valY = maxRotationY;
-					
-					cam.rotationY = valY;
-					cam.rotationX = valX;
+					// move camera controller based on fiducial drag
+					onCameraDrag(e);
 				}
 				else fade(cameraArrows, "out");
 			}
@@ -616,6 +674,7 @@ package
 			fade(cameraArrows, "out");
 			fade(rotation_dial, "out");
 			fade(modelArrows, "out");
+			first = true; 
 		}
 		
 		private function clearPopups(e:GWGestureEvent=null):void
@@ -684,6 +743,18 @@ package
 		private function radians(degrees:Number):Number
 		{
 			return degrees * Math.PI / 180;
+		}
+		
+		/**
+		 * Camera drag event handler
+		 */
+		private function onCameraDrag(e:GWGestureEvent):void 
+		{		
+			// apply gesture drag values to cameraController with arbituary scale factor (.25);
+			cameraController.panAngle += e.value.drag_dx * .25;
+			cameraController.tiltAngle += e.value.drag_dy * .25;
+					
+			trace("camera drag values:", e.value.drag_dx, e.value.drag_dy);
 		}
 	}		
 }

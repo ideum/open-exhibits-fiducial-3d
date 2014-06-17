@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <cml>
-	<ModelPopup id="blank_placeholder" width="330" height="435" mouseChildren="true">
-	<Image width="325" height="433" src="library/assets/hotspots/infobox.png"/>
-	<Text fontSize="26" x="15" y="15" width="270" height="50" font="OpenSansBold" color="0x999999" toBitmap="true" str="Blank Placeholder" />
+	<ModelPopup id="flame_holder" width="433" height="325" mouseChildren="true">
+	<Image width="433" height="325" src="library/assets/hotspots/infobox_landscape_small.png"/>
+	<Text fontSize="26" x="15" y="10" width="270" height="50" font="OpenSansBold" color="0x999999" toBitmap="true" str="Flame Holder" />
 	
-	<ScrollPane visible="true" width="280" y="52" height="360" paneStroke="0" scrollThickness="20" mouseChildren="true" targetParent="false" clusterBubbling="false">
-		<ScrollBar buttonFill="0x333333" fill="0x555555" railShape="roundRectangle" thumbFill="0x303030" cornerHeight="15" cornerWidth="15" buttonVisible="false"/>
-		
-		<Text fontSize="18" x="15" width="250" height="700" color="0x999999" toBitmap="true" multiline="true" wordWrap="true">	
-			<p>Need relevant technical information.</p>
+	<ScrollPane visible="true" width="393" y="57" height="245" paneStroke="0" scrollThickness="20" mouseChildren="true" targetParent="false" clusterBubbling="false">
+		<Text fontSize="18" x="15" width="358" height="240" color="0x999999" toBitmap="true" multiline="true" wordWrap="true">	
+			<p>Flame fronts generally travel at just Mach 0.05, whereas airflows through jet 
+			engines are considerably faster than this. Combustors typically employ structures 
+			to give a sheltered combustion zone called a flame holder. Combustor configurations 
+			include can, annular, and can-annular configurations.</p>
 		</Text>
-
+		
 		<GestureList>
 			<Gesture ref="1-finger-drag" gestureOn="true"/>
 			<Gesture ref="1-finger-tap" gestureOn="true"/>
@@ -22,16 +23,15 @@
 	<Gesture ref="1-finger-drag" />
 	<Gesture ref="1-finger-tap" />
 	</ModelPopup>
-
 	
-	<ModelPopup id="intake" width="330" height="435" mouseChildren="true">
-	<Image width="325" height="433" src="library/assets/hotspots/infobox.png"/>
-	<Text fontSize="26" x="15" y="15" width="270" height="50" font="OpenSansBold" color="0x999999" toBitmap="true" str="Air Intake" />
+	<ModelPopup id="intake" width="433" height="325" mouseChildren="true">
+	<Image width="433" height="325" src="library/assets/hotspots/infobox_landscape_small.png"/>
+	<Text fontSize="26" x="15" y="10" width="270" height="50" font="OpenSansBold" color="0x999999" toBitmap="true" str="Air Intake" />
 	
-	<ScrollPane visible="true" width="280" y="52" height="360" paneStroke="0" scrollThickness="20" mouseChildren="true" targetParent="false" clusterBubbling="false">
+	<ScrollPane visible="true" width="393" y="57" height="245" paneStroke="0" scrollThickness="20" mouseChildren="true" targetParent="false" clusterBubbling="false">
 		<ScrollBar buttonFill="0x333333" fill="0x555555" railShape="roundRectangle" thumbFill="0x303030" cornerHeight="15" cornerWidth="15" buttonVisible="false" />
 		
-		<Text fontSize="18" x="15" width="250" height="700" color="0x999999" toBitmap="true" multiline="true" wordWrap="true">	
+		<Text fontSize="18" x="15" width="358" height="860" color="0x999999" toBitmap="true" multiline="true" wordWrap="true">	
 			<p>For subsonic aircraft, the inlet is a duct which is required to ensure smooth 
 			airflow into the engine despite air approaching the inlet from directions other than straight ahead. 
 			This occurs on the ground from cross winds and in flight with aircraft pitch and yaw motions. The duct 
@@ -59,15 +59,13 @@
 	<Gesture ref="1-finger-tap" />
 	</ModelPopup>
 	
+	<ModelPopup id="fan" width="433" height="325" mouseChildren="true">
+	<Image width="433" height="325" src="library/assets/hotspots/infobox_landscape_small.png"/>
+	<Text fontSize="26" x="15" y="10" width="270" height="50" font="OpenSansBold" color="0x999999" toBitmap="true" str="Compressor (or Fan)" />
 	
-	<ModelPopup id="fan" width="330" height="435" mouseChildren="true">
-	<Image width="325" height="433" src="library/assets/hotspots/infobox.png"/>
-	<Text fontSize="26" x="15" y="15" width="270" height="50" font="OpenSansBold" color="0x999999" toBitmap="true" str="Compressor(Fan)" />
-	
-	<ScrollPane visible="true" width="280" y="52" height="360" paneStroke="0" scrollThickness="20" mouseChildren="true" targetParent="false" clusterBubbling="false">
-		<ScrollBar buttonFill="0x333333" fill="0x555555" railShape="roundRectangle" thumbFill="0x303030" cornerHeight="15" cornerWidth="15" buttonVisible="false" />
+	<ScrollPane visible="true" width="393" y="57" height="245" paneStroke="0" scrollThickness="20" mouseChildren="true" targetParent="false" clusterBubbling="false">
 		
-		<Text fontSize="18" x="15" width="250" height="700" color="0x999999" toBitmap="true" multiline="true" wordWrap="true">	
+		<Text fontSize="18" x="15" width="358" height="240" color="0x999999" toBitmap="true" multiline="true" wordWrap="true">	
 			<p>The compressor is made up of stages. Each stage consists of rotating blades and stationary stators or vanes. 
 			As the air moves through the compressor, its pressure and temperture increase. The power to drive the 
 			compressor comes from the turbine, as shaft torque and speed.</p>
@@ -83,64 +81,14 @@
 	<Gesture ref="1-finger-drag" />
 	<Gesture ref="1-finger-tap" />
 	</ModelPopup>
-
+	
+	<ModelPopup id="bypass_ducts" width="433" height="325" mouseChildren="true">
+	<Image width="433" height="325" src="library/assets/hotspots/infobox_landscape_small.png"/>
+	<Text fontSize="26" x="15" y="10" width="270" height="50" font="OpenSansBold" color="0x999999" toBitmap="true" str="Bypass Ducts" />
+	
+	<ScrollPane visible="true" width="393" y="57" height="245" paneStroke="0" scrollThickness="20" mouseChildren="true" targetParent="false" clusterBubbling="false">
 		
-	<ModelPopup id="Compressor" width="330" height="435" mouseChildren="true">
-	<Image width="325" height="433" src="library/assets/hotspots/infobox.png"/>
-	<Text fontSize="18" x="15" y="15" width="270" height="50" font="OpenSansBold" color="0x999999" toBitmap="true" str="Low Pressure Compressor" />
-	
-	<ScrollPane visible="true" width="280" y="52" height="360" paneStroke="0" scrollThickness="20" mouseChildren="true" targetParent="false" clusterBubbling="false">
-		<ScrollBar buttonFill="0x333333" fill="0x555555" railShape="roundRectangle" thumbFill="0x303030" cornerHeight="15" cornerWidth="15" buttonVisible="false" />
-		
-		<Text fontSize="18" x="15" width="250" height="700" color="0x999999" toBitmap="true" multiline="true" wordWrap="true">	
-			<p>Compressor (or Fan) - The compressor is made up of stages. Each stage consists of rotating blades and stationary stators or vanes. 
-			As the air moves through the compressor, its pressure and temperture increase. The power to drive the 
-			compressor comes from the turbine, as shaft torque and speed.</p>
-		</Text>
-
-		<GestureList>
-			<Gesture ref="1-finger-drag" gestureOn="true"/>
-			<Gesture ref="1-finger-tap" gestureOn="true"/>
-		</GestureList>
-	</ScrollPane>
-	
-	<Include src="library/cml/close-button.cml"/>
-	<Gesture ref="1-finger-drag" />
-	<Gesture ref="1-finger-tap" />
-	</ModelPopup>
-	
-	<ModelPopup id="HighPressureCompressor" width="330" height="435" mouseChildren="true">
-	<Image width="325" height="433" src="library/assets/hotspots/infobox.png"/>
-	<Text fontSize="18" x="15" y="15" width="270" height="50" font="OpenSansBold" color="0x999999" toBitmap="true" str="High Pressure Compressor" />
-	
-	<ScrollPane visible="true" width="280" y="52" height="360" paneStroke="0" scrollThickness="20" mouseChildren="true" targetParent="false" clusterBubbling="false">
-		<ScrollBar buttonFill="0x333333" fill="0x555555" railShape="roundRectangle" thumbFill="0x303030" cornerHeight="15" cornerWidth="15" buttonVisible="false" />
-		
-		<Text fontSize="18" x="15" width="250" height="700" color="0x999999" toBitmap="true" multiline="true" wordWrap="true">	
-			<p>Compressor (or Fan) - The compressor is made up of stages. Each stage consists of rotating blades and stationary stators or vanes. 
-			As the air moves through the compressor, its pressure and temperture increase. The power to drive the 
-			compressor comes from the turbine, as shaft torque and speed.</p>
-		</Text>
-
-		<GestureList>
-			<Gesture ref="1-finger-drag" gestureOn="true"/>
-			<Gesture ref="1-finger-tap" gestureOn="true"/>
-		</GestureList>
-	</ScrollPane>
-	
-	<Include src="library/cml/close-button.cml"/>
-	<Gesture ref="1-finger-drag" />
-	<Gesture ref="1-finger-tap" />
-	</ModelPopup>
-	
-	<ModelPopup id="bypass_ducts" width="330" height="435" mouseChildren="true">
-	<Image width="325" height="433" src="library/assets/hotspots/infobox.png"/>
-	<Text fontSize="26" x="15" y="15" width="270" height="50" font="OpenSansBold" color="0x999999" toBitmap="true" str="Bypass Ducts" />
-	
-	<ScrollPane visible="true" width="280" y="52" height="360" paneStroke="0" scrollThickness="20" mouseChildren="true" targetParent="false" clusterBubbling="false">
-		<ScrollBar buttonFill="0x333333" fill="0x555555" railShape="roundRectangle" thumbFill="0x303030" cornerHeight="15" cornerWidth="15" buttonVisible="false" />
-		
-		<Text fontSize="18" x="15" width="250" height="700" color="0x999999" toBitmap="true" multiline="true" wordWrap="true">	
+		<Text fontSize="18" x="15" width="358" height="240" color="0x999999" toBitmap="true" multiline="true" wordWrap="true">	
 			<p>Bypass ducts deliver the flow from the fan with minimum losses to the bypass propelling nozzle. 
 			Alternatively the fan flow may be mixed with the turbine exhaust before entering a single propelling 
 			nozzle. In another arrangement an afterburner may be installed between the mixer and nozzle.</p>
@@ -157,15 +105,13 @@
 	<Gesture ref="1-finger-tap" />
 	</ModelPopup>
 	
+	<ModelPopup id="shaft" width="433" height="325" mouseChildren="true">
+	<Image width="433" height="325" src="library/assets/hotspots/infobox_landscape_small.png"/>
+	<Text fontSize="26" x="15" y="10" width="270" height="50" font="OpenSansBold" color="0x999999" toBitmap="true" str="Shaft" />
 	
-	<ModelPopup  id="shaft" width="330" height="435" mouseChildren="true">
-	<Image width="325" height="433" src="library/assets/hotspots/infobox.png"/>
-	<Text fontSize="26" x="15" y="15" width="270" height="50" font="OpenSansBold" color="0x999999" toBitmap="true" str="Shaft" />
-	
-	<ScrollPane visible="true" width="280" y="52" height="360" paneStroke="0" scrollThickness="20" mouseChildren="true" targetParent="false" clusterBubbling="false">
-		<ScrollBar buttonFill="0x333333" fill="0x555555" railShape="roundRectangle" thumbFill="0x303030" cornerHeight="15" cornerWidth="15" buttonVisible="false" />
+	<ScrollPane visible="true" width="393" y="57" height="245" paneStroke="0" scrollThickness="20" mouseChildren="true" targetParent="false" clusterBubbling="false">
 		
-		<Text fontSize="18" x="15" width="250" height="700" color="0x999999" toBitmap="true" multiline="true" wordWrap="true">	
+		<Text fontSize="18" x="15" width="358" height="240" color="0x999999" toBitmap="true" multiline="true" wordWrap="true">	
 			<p>The shaft connects the turbine to the compressor, and runs most of the length of the engine. 
 			There may be as many as three concentric shafts, rotating at independent speeds, with as many 
 			sets of turbines and compressors. Cooling air for the turbines may flow through the shaft from 
@@ -183,15 +129,16 @@
 	<Gesture ref="1-finger-tap" />
 	</ModelPopup>
 			
-	<!-- <ModelPopup id="combustor" width="330" height="435" mouseChildren="true">
-	<Image width="325" height="433" src="library/assets/hotspots/infobox.png"/>
-	<Text fontSize="26" x="15" y="15" width="270" height="50" font="OpenSansBold" color="0x999999" toBitmap="true" str="Combustor" />
+		
+	<ModelPopup id="combustor" width="433" height="325" mouseChildren="true">
+	<Image width="433" height="325" src="library/assets/hotspots/infobox_landscape_small.png"/>
+	<Text fontSize="26" x="15" y="10" width="270" height="50" font="OpenSansBold" color="0x999999" toBitmap="true" str="Combustor" />
 	
-	<ScrollPane visible="true" width="280" y="52" height="360" paneStroke="0" scrollThickness="20" mouseChildren="true" targetParent="false" clusterBubbling="false">
+	<ScrollPane visible="true" width="393" y="57" height="245" paneStroke="0" scrollThickness="20" mouseChildren="true" targetParent="false" clusterBubbling="false">
 		<ScrollBar buttonFill="0x333333" fill="0x555555" railShape="roundRectangle" thumbFill="0x303030" cornerHeight="15" cornerWidth="15" buttonVisible="false" />
 		
-		<Text fontSize="18" x="15" width="250" height="700" color="0x999999" toBitmap="true" multiline="true" wordWrap="true">	
-			<p>Combustor or Combustion Chamber — Fuel is burned continuously after initially being ignited during the engine start.<br /></p>
+		<Text fontSize="18" x="15" width="358" height="300" color="0x999999" toBitmap="true" multiline="true" wordWrap="true">	
+			<p>Fuel is burned continuously after initially being ignited during the engine start.<br /></p>
 			<p>In a gas turbine engine, the combustor or combustion chamber is fed high pressure air by the compression system. 
 			   The combustor then heats this air at constant pressure. After heating, air passes from the combustor through the 
 			   nozzle guide vanes to the turbine. In the case of a ramjet or scramjet engines, the air is directly fed to the nozzle.</p>
@@ -207,43 +154,15 @@
 	<Gesture ref="1-finger-drag" />
 	<Gesture ref="1-finger-tap" />
 	</ModelPopup>
+		
+	<ModelPopup id="Turbine" width="433" height="325" mouseChildren="true">
+	<Image width="433" height="325" src="library/assets/hotspots/infobox_landscape_small.png"/>
+	<Text fontSize="26" x="15" y="10" width="270" height="50" font="OpenSansBold" color="0x999999" toBitmap="true" str="Turbine" />
 	
-	<ModelPopup id="LowPressureTurbine" width="330" height="435" mouseChildren="true">
-	<Image width="325" height="433" src="library/assets/hotspots/infobox.png"/>
-	<Text fontSize="22" x="15" y="15" width="270" height="50" font="OpenSansBold" color="0x999999" toBitmap="true" str="Low Pressure Turbine" />
-	
-	<ScrollPane visible="true" width="280" y="52" height="360" paneStroke="0" scrollThickness="20" mouseChildren="true" targetParent="false" clusterBubbling="false">
+	<ScrollPane visible="true" width="393" y="57" height="245" paneStroke="0" scrollThickness="20" mouseChildren="true" targetParent="false" clusterBubbling="false">
 		<ScrollBar buttonFill="0x333333" fill="0x555555" railShape="roundRectangle" thumbFill="0x303030" cornerHeight="15" cornerWidth="15" buttonVisible="false" />
 		
-		<Text fontSize="18" x="15" width="250" height="700" color="0x999999" toBitmap="true" multiline="true" wordWrap="true">	
-			<p>The turbine is a series of bladed discs that act like a windmill, extracting energy from the hot gases 
-			leaving the combustor. Some of this energy is used to drive the compressor. Turboprop, turboshaft and 
-			turbofan engines have additional turbine stages to drive a propeller, bypass fan or helicopter rotor.<br /></p>
-			<p>In a free turbine the turbine driving the compressor rotates independently of that which powers the 
-			propellor or helicopter rotor. Cooling air, bled from the compressor, may be used to cool the turbine 
-			blades, vanes and discs to allow higher turbine entry gas temperatures for the same turbine material 
-			temperatures.</p>
-		</Text>
-
-		<GestureList>
-			<Gesture ref="1-finger-drag" gestureOn="true"/>
-			<Gesture ref="1-finger-tap" gestureOn="true"/>
-		</GestureList>
-	</ScrollPane>
-	
-	<Include src="library/cml/close-button.cml"/>
-	<Gesture ref="1-finger-drag" />
-	<Gesture ref="1-finger-tap" />
-	</ModelPopup> 
-	
-	<ModelPopup id="HighPressureTurbine" width="330" height="435" mouseChildren="true">
-	<Image width="325" height="433" src="library/assets/hotspots/infobox.png"/>
-	<Text fontSize="22" x="15" y="15" width="270" height="50" font="OpenSansBold" color="0x999999" toBitmap="true" str="High Pressure Turbine" />
-	
-	<ScrollPane visible="true" width="280" y="52" height="360" paneStroke="0" scrollThickness="20" mouseChildren="true" targetParent="false" clusterBubbling="false">
-		<ScrollBar buttonFill="0x333333" fill="0x555555" railShape="roundRectangle" thumbFill="0x303030" cornerHeight="15" cornerWidth="15" buttonVisible="false" />
-		
-		<Text fontSize="18" x="15" width="250" height="700" color="0x999999" toBitmap="true" multiline="true" wordWrap="true">	
+		<Text fontSize="18" x="15" width="358" height="440" color="0x999999" toBitmap="true" multiline="true" wordWrap="true">	
 			<p>The turbine is a series of bladed discs that act like a windmill, extracting energy from the hot gases 
 			leaving the combustor. Some of this energy is used to drive the compressor. Turboprop, turboshaft and 
 			turbofan engines have additional turbine stages to drive a propeller, bypass fan or helicopter rotor.<br /></p>
@@ -263,31 +182,5 @@
 	<Gesture ref="1-finger-drag" />
 	<Gesture ref="1-finger-tap" />
 	</ModelPopup>
-	
-	
-	<ModelPopup id="flame_holder" width="330" height="435" mouseChildren="true">
-	<Image width="325" height="433" src="library/assets/hotspots/infobox.png"/>
-	<Text fontSize="26" x="15" y="15" width="270" height="50" font="OpenSansBold" color="0x999999" toBitmap="true" str="Flame Holder" />
-	
-	<ScrollPane visible="true" width="280" y="52" height="360" paneStroke="0" scrollThickness="20" mouseChildren="true" targetParent="false" clusterBubbling="false">
-		<ScrollBar buttonFill="0x333333" fill="0x555555" railShape="roundRectangle" thumbFill="0x303030" cornerHeight="15" cornerWidth="15" buttonVisible="false" />
-		
-		<Text fontSize="18" x="15" width="250" height="700" color="0x999999" toBitmap="true" multiline="true" wordWrap="true">	
-			<p>Flame fronts generally travel at just Mach 0.05, whereas airflows through jet 
-			engines are considerably faster than this. Combustors typically employ structures 
-			to give a sheltered combustion zone called a flame holder. Combustor configurations 
-			include can, annular, and can-annular.</p>
-		</Text>
-		
-		<GestureList>
-			<Gesture ref="1-finger-drag" gestureOn="true"/>
-			<Gesture ref="1-finger-tap" gestureOn="true"/>
-		</GestureList>
-	</ScrollPane>
-	
-	<Include src="library/cml/close-button.cml"/>
-	<Gesture ref="1-finger-drag" />
-	<Gesture ref="1-finger-tap" />
-	</ModelPopup> -->
 
 </cml>
