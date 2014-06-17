@@ -2,7 +2,6 @@
 <GestureMarkupLanguage xmlns:gml="http://gestureworks.com/gml/version/1.0">
 
 	
-	
 		<Gesture_set gesture_set_name="3d-pinch-gestures">	
 		
 					<Gesture id="3dmotion-n-pinch-2dtranslate" type="motion_drag">
@@ -2431,6 +2430,7 @@
 								</update>
 							</mapping>
 						</Gesture>
+
 					
 	</Gesture_set>
 	

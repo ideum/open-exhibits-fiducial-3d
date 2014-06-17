@@ -424,8 +424,8 @@
 				</update>
 			</mapping>
 		</Gesture>		
+		
 				
 	</Gesture_set>	
-		
 			
 </GestureMarkupLanguage>

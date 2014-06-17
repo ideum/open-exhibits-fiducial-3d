@@ -5,8 +5,8 @@
 	<Image width="325" height="433" src="library/assets/hotspots/infobox.png"/>
 	<Text fontSize="26" x="15" y="15" width="270" height="50" font="OpenSansBold" color="0x999999" toBitmap="true" str="Blank Placeholder" />
 	
-	<ScrollPane visible="true" width="280" y="52" height="360" paneStroke="0" scrollThickness="20" mouseChildren="true" targetParent="true" clusterBubbling="false">
-		<ScrollBar buttonFill="0x333333" fill="0x555555" railShape="roundRectangle" thumbFill="0x303030" cornerHeight="15" cornerWidth="15" buttonVisible="false" />
+	<ScrollPane visible="true" width="280" y="52" height="360" paneStroke="0" scrollThickness="20" mouseChildren="true" targetParent="false" clusterBubbling="false">
+		<ScrollBar buttonFill="0x333333" fill="0x555555" railShape="roundRectangle" thumbFill="0x303030" cornerHeight="15" cornerWidth="15" buttonVisible="false"/>
 		
 		<Text fontSize="18" x="15" width="250" height="700" color="0x999999" toBitmap="true" multiline="true" wordWrap="true">	
 			<p>Need relevant technical information.</p>
@@ -14,7 +14,6 @@
 
 		<GestureList>
 			<Gesture ref="1-finger-drag" gestureOn="true"/>
-			<Gesture ref="2-finger-scale" gestureOn="true"/>
 			<Gesture ref="1-finger-tap" gestureOn="true"/>
 		</GestureList>
 	</ScrollPane>
@@ -29,7 +28,7 @@
 	<Image width="325" height="433" src="library/assets/hotspots/infobox.png"/>
 	<Text fontSize="26" x="15" y="15" width="270" height="50" font="OpenSansBold" color="0x999999" toBitmap="true" str="Air Intake" />
 	
-	<ScrollPane visible="true" width="280" y="52" height="360" paneStroke="0" scrollThickness="20" mouseChildren="true" targetParent="true" clusterBubbling="false">
+	<ScrollPane visible="true" width="280" y="52" height="360" paneStroke="0" scrollThickness="20" mouseChildren="true" targetParent="false" clusterBubbling="false">
 		<ScrollBar buttonFill="0x333333" fill="0x555555" railShape="roundRectangle" thumbFill="0x303030" cornerHeight="15" cornerWidth="15" buttonVisible="false" />
 		
 		<Text fontSize="18" x="15" width="250" height="700" color="0x999999" toBitmap="true" multiline="true" wordWrap="true">	
@@ -51,7 +50,6 @@
 
 		<GestureList>
 			<Gesture ref="1-finger-drag" gestureOn="true"/>
-			<Gesture ref="2-finger-scale" gestureOn="true"/>
 			<Gesture ref="1-finger-tap" gestureOn="true"/>
 		</GestureList>
 	</ScrollPane>
@@ -66,7 +64,7 @@
 	<Image width="325" height="433" src="library/assets/hotspots/infobox.png"/>
 	<Text fontSize="26" x="15" y="15" width="270" height="50" font="OpenSansBold" color="0x999999" toBitmap="true" str="Compressor(Fan)" />
 	
-	<ScrollPane visible="true" width="280" y="52" height="360" paneStroke="0" scrollThickness="20" mouseChildren="true" targetParent="true" clusterBubbling="false">
+	<ScrollPane visible="true" width="280" y="52" height="360" paneStroke="0" scrollThickness="20" mouseChildren="true" targetParent="false" clusterBubbling="false">
 		<ScrollBar buttonFill="0x333333" fill="0x555555" railShape="roundRectangle" thumbFill="0x303030" cornerHeight="15" cornerWidth="15" buttonVisible="false" />
 		
 		<Text fontSize="18" x="15" width="250" height="700" color="0x999999" toBitmap="true" multiline="true" wordWrap="true">	
@@ -77,7 +75,6 @@
 
 		<GestureList>
 			<Gesture ref="1-finger-drag" gestureOn="true"/>
-			<Gesture ref="2-finger-scale" gestureOn="true"/>
 			<Gesture ref="1-finger-tap" gestureOn="true"/>
 		</GestureList>
 	</ScrollPane>
@@ -92,7 +89,7 @@
 	<Image width="325" height="433" src="library/assets/hotspots/infobox.png"/>
 	<Text fontSize="18" x="15" y="15" width="270" height="50" font="OpenSansBold" color="0x999999" toBitmap="true" str="Low Pressure Compressor" />
 	
-	<ScrollPane visible="true" width="280" y="52" height="360" paneStroke="0" scrollThickness="20" mouseChildren="true" targetParent="true" clusterBubbling="false">
+	<ScrollPane visible="true" width="280" y="52" height="360" paneStroke="0" scrollThickness="20" mouseChildren="true" targetParent="false" clusterBubbling="false">
 		<ScrollBar buttonFill="0x333333" fill="0x555555" railShape="roundRectangle" thumbFill="0x303030" cornerHeight="15" cornerWidth="15" buttonVisible="false" />
 		
 		<Text fontSize="18" x="15" width="250" height="700" color="0x999999" toBitmap="true" multiline="true" wordWrap="true">	
@@ -103,7 +100,6 @@
 
 		<GestureList>
 			<Gesture ref="1-finger-drag" gestureOn="true"/>
-			<Gesture ref="2-finger-scale" gestureOn="true"/>
 			<Gesture ref="1-finger-tap" gestureOn="true"/>
 		</GestureList>
 	</ScrollPane>
@@ -117,7 +113,7 @@
 	<Image width="325" height="433" src="library/assets/hotspots/infobox.png"/>
 	<Text fontSize="18" x="15" y="15" width="270" height="50" font="OpenSansBold" color="0x999999" toBitmap="true" str="High Pressure Compressor" />
 	
-	<ScrollPane visible="true" width="280" y="52" height="360" paneStroke="0" scrollThickness="20" mouseChildren="true" targetParent="true" clusterBubbling="false">
+	<ScrollPane visible="true" width="280" y="52" height="360" paneStroke="0" scrollThickness="20" mouseChildren="true" targetParent="false" clusterBubbling="false">
 		<ScrollBar buttonFill="0x333333" fill="0x555555" railShape="roundRectangle" thumbFill="0x303030" cornerHeight="15" cornerWidth="15" buttonVisible="false" />
 		
 		<Text fontSize="18" x="15" width="250" height="700" color="0x999999" toBitmap="true" multiline="true" wordWrap="true">	
@@ -128,7 +124,6 @@
 
 		<GestureList>
 			<Gesture ref="1-finger-drag" gestureOn="true"/>
-			<Gesture ref="2-finger-scale" gestureOn="true"/>
 			<Gesture ref="1-finger-tap" gestureOn="true"/>
 		</GestureList>
 	</ScrollPane>
@@ -142,7 +137,7 @@
 	<Image width="325" height="433" src="library/assets/hotspots/infobox.png"/>
 	<Text fontSize="26" x="15" y="15" width="270" height="50" font="OpenSansBold" color="0x999999" toBitmap="true" str="Bypass Ducts" />
 	
-	<ScrollPane visible="true" width="280" y="52" height="360" paneStroke="0" scrollThickness="20" mouseChildren="true" targetParent="true" clusterBubbling="false">
+	<ScrollPane visible="true" width="280" y="52" height="360" paneStroke="0" scrollThickness="20" mouseChildren="true" targetParent="false" clusterBubbling="false">
 		<ScrollBar buttonFill="0x333333" fill="0x555555" railShape="roundRectangle" thumbFill="0x303030" cornerHeight="15" cornerWidth="15" buttonVisible="false" />
 		
 		<Text fontSize="18" x="15" width="250" height="700" color="0x999999" toBitmap="true" multiline="true" wordWrap="true">	
@@ -150,10 +145,9 @@
 			Alternatively the fan flow may be mixed with the turbine exhaust before entering a single propelling 
 			nozzle. In another arrangement an afterburner may be installed between the mixer and nozzle.</p>
 		</Text>
-
+		
 		<GestureList>
 			<Gesture ref="1-finger-drag" gestureOn="true"/>
-			<Gesture ref="2-finger-scale" gestureOn="true"/>
 			<Gesture ref="1-finger-tap" gestureOn="true"/>
 		</GestureList>
 	</ScrollPane>
@@ -168,7 +162,7 @@
 	<Image width="325" height="433" src="library/assets/hotspots/infobox.png"/>
 	<Text fontSize="26" x="15" y="15" width="270" height="50" font="OpenSansBold" color="0x999999" toBitmap="true" str="Shaft" />
 	
-	<ScrollPane visible="true" width="280" y="52" height="360" paneStroke="0" scrollThickness="20" mouseChildren="true" targetParent="true" clusterBubbling="false">
+	<ScrollPane visible="true" width="280" y="52" height="360" paneStroke="0" scrollThickness="20" mouseChildren="true" targetParent="false" clusterBubbling="false">
 		<ScrollBar buttonFill="0x333333" fill="0x555555" railShape="roundRectangle" thumbFill="0x303030" cornerHeight="15" cornerWidth="15" buttonVisible="false" />
 		
 		<Text fontSize="18" x="15" width="250" height="700" color="0x999999" toBitmap="true" multiline="true" wordWrap="true">	
@@ -180,7 +174,6 @@
 
 		<GestureList>
 			<Gesture ref="1-finger-drag" gestureOn="true"/>
-			<Gesture ref="2-finger-scale" gestureOn="true"/>
 			<Gesture ref="1-finger-tap" gestureOn="true"/>
 		</GestureList>
 	</ScrollPane>
@@ -194,7 +187,7 @@
 	<Image width="325" height="433" src="library/assets/hotspots/infobox.png"/>
 	<Text fontSize="26" x="15" y="15" width="270" height="50" font="OpenSansBold" color="0x999999" toBitmap="true" str="Combustor" />
 	
-	<ScrollPane visible="true" width="280" y="52" height="360" paneStroke="0" scrollThickness="20" mouseChildren="true" targetParent="true" clusterBubbling="false">
+	<ScrollPane visible="true" width="280" y="52" height="360" paneStroke="0" scrollThickness="20" mouseChildren="true" targetParent="false" clusterBubbling="false">
 		<ScrollBar buttonFill="0x333333" fill="0x555555" railShape="roundRectangle" thumbFill="0x303030" cornerHeight="15" cornerWidth="15" buttonVisible="false" />
 		
 		<Text fontSize="18" x="15" width="250" height="700" color="0x999999" toBitmap="true" multiline="true" wordWrap="true">	
@@ -206,7 +199,6 @@
 
 		<GestureList>
 			<Gesture ref="1-finger-drag" gestureOn="true"/>
-			<Gesture ref="2-finger-scale" gestureOn="true"/>
 			<Gesture ref="1-finger-tap" gestureOn="true"/>
 		</GestureList>
 	</ScrollPane>
@@ -220,7 +212,7 @@
 	<Image width="325" height="433" src="library/assets/hotspots/infobox.png"/>
 	<Text fontSize="22" x="15" y="15" width="270" height="50" font="OpenSansBold" color="0x999999" toBitmap="true" str="Low Pressure Turbine" />
 	
-	<ScrollPane visible="true" width="280" y="52" height="360" paneStroke="0" scrollThickness="20" mouseChildren="true" targetParent="true" clusterBubbling="false">
+	<ScrollPane visible="true" width="280" y="52" height="360" paneStroke="0" scrollThickness="20" mouseChildren="true" targetParent="false" clusterBubbling="false">
 		<ScrollBar buttonFill="0x333333" fill="0x555555" railShape="roundRectangle" thumbFill="0x303030" cornerHeight="15" cornerWidth="15" buttonVisible="false" />
 		
 		<Text fontSize="18" x="15" width="250" height="700" color="0x999999" toBitmap="true" multiline="true" wordWrap="true">	
@@ -235,7 +227,6 @@
 
 		<GestureList>
 			<Gesture ref="1-finger-drag" gestureOn="true"/>
-			<Gesture ref="2-finger-scale" gestureOn="true"/>
 			<Gesture ref="1-finger-tap" gestureOn="true"/>
 		</GestureList>
 	</ScrollPane>
@@ -249,7 +240,7 @@
 	<Image width="325" height="433" src="library/assets/hotspots/infobox.png"/>
 	<Text fontSize="22" x="15" y="15" width="270" height="50" font="OpenSansBold" color="0x999999" toBitmap="true" str="High Pressure Turbine" />
 	
-	<ScrollPane visible="true" width="280" y="52" height="360" paneStroke="0" scrollThickness="20" mouseChildren="true" targetParent="true" clusterBubbling="false">
+	<ScrollPane visible="true" width="280" y="52" height="360" paneStroke="0" scrollThickness="20" mouseChildren="true" targetParent="false" clusterBubbling="false">
 		<ScrollBar buttonFill="0x333333" fill="0x555555" railShape="roundRectangle" thumbFill="0x303030" cornerHeight="15" cornerWidth="15" buttonVisible="false" />
 		
 		<Text fontSize="18" x="15" width="250" height="700" color="0x999999" toBitmap="true" multiline="true" wordWrap="true">	
@@ -264,7 +255,6 @@
 
 		<GestureList>
 			<Gesture ref="1-finger-drag" gestureOn="true"/>
-			<Gesture ref="2-finger-scale" gestureOn="true"/>
 			<Gesture ref="1-finger-tap" gestureOn="true"/>
 		</GestureList>
 	</ScrollPane>
@@ -279,7 +269,7 @@
 	<Image width="325" height="433" src="library/assets/hotspots/infobox.png"/>
 	<Text fontSize="26" x="15" y="15" width="270" height="50" font="OpenSansBold" color="0x999999" toBitmap="true" str="Flame Holder" />
 	
-	<ScrollPane visible="true" width="280" y="52" height="360" paneStroke="0" scrollThickness="20" mouseChildren="true" targetParent="true" clusterBubbling="false">
+	<ScrollPane visible="true" width="280" y="52" height="360" paneStroke="0" scrollThickness="20" mouseChildren="true" targetParent="false" clusterBubbling="false">
 		<ScrollBar buttonFill="0x333333" fill="0x555555" railShape="roundRectangle" thumbFill="0x303030" cornerHeight="15" cornerWidth="15" buttonVisible="false" />
 		
 		<Text fontSize="18" x="15" width="250" height="700" color="0x999999" toBitmap="true" multiline="true" wordWrap="true">	
@@ -291,7 +281,6 @@
 		
 		<GestureList>
 			<Gesture ref="1-finger-drag" gestureOn="true"/>
-			<Gesture ref="2-finger-scale" gestureOn="true"/>
 			<Gesture ref="1-finger-tap" gestureOn="true"/>
 		</GestureList>
 	</ScrollPane>

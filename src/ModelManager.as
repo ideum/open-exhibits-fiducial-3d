@@ -204,7 +204,7 @@ package
 			}
 				
 			//mainScreen.addEventListener(GWGestureEvent.TAP, onTap);
-			overlay.addEventListener(GWGestureEvent.ROTATE, onRotate); //will be TAG_ROTATE N=4
+			overlay.addEventListener(GWGestureEvent.ROTATE, onRotate); //will be TAG_ROTATE N=40
 			overlay.addEventListener(GWGestureEvent.DRAG, onDrag); // will be TAG_DRAG N=3 AND N=5
 			overlay.addEventListener(GWGestureEvent.SCALE, onScale); // WILL BE SCALE n=2
 			overlay.addEventListener(GWGestureEvent.RELEASE, clear);
@@ -257,12 +257,13 @@ package
 
 			if (e.value.n == 1)
 			{
+			  viewerBasedTranslation(current_container, e.value.drag_dx, e.value.drag_dy);
 			  /* code for rotating individual model pieces	
 			  var valX:Number = current_container.rotationX + e.value.drag_dy * .25;
 			  var valY:Number = current_container.rotationY + e.value.drag_dx * -.25;
 				
 			  current_container.rotationY = valY;
-			  current_container.rotationX = valX;*/
+			  current_container.rotationX = valX;
 			  trace("CurrentX =" + current_container.x);
 			  trace("CurrentY =" + current_container.y);
 			  
@@ -275,7 +276,7 @@ package
 			  current_container.x = valX;
 			  
 			  trace("newX =" + current_container.x);
-			  trace("newY =" + current_container.y);
+			  trace("newY =" + current_container.y);*/
 			}
 		}
 		
@@ -396,6 +397,8 @@ package
 					rotation_dial.y = y;
 				
 					fade(rotation_dial, "in");
+					fade(cameraArrows, "out");
+					fade(modelArrows, "out");
 
 				}
 				else fade(rotation_dial, "out");
@@ -419,7 +422,10 @@ package
 					y = e.value.localY;
 					modelArrows.x = x;
 					modelArrows.y = y;
+					
 					fade(modelArrows, "in");
+					fade(cameraArrows, "out");
+					fade(rotation_dial, "out");
 					
 					// get current full model rotation and apply new change in rotation
 					valY = main.rotationY + e.value.drag_dx * -.25;
@@ -435,7 +441,10 @@ package
 					y = e.value.localY;
 					cameraArrows.x = x;
 					cameraArrows.y = y;
+					
 					fade(cameraArrows, "in");
+					fade(rotation_dial, "out");
+					fade(modelArrows, "out");
 					
 					// get current camera rotation and apply new change in rotation
 					valY = cam.rotationY + e.value.drag_dx * .25;
@@ -521,11 +530,11 @@ package
 			if (direction == "in")
 			{
 				if (item.visible == false) item.visible = true;
-				TweenLite.to(item, 1, { alpha:1} );
+				TweenLite.to(item, 0.5, { alpha:1} );
 			}
 			else
 			{
-				TweenLite.to(item, 1, { alpha:0 } );	
+				TweenLite.to(item, 0.5, { alpha:0 } );	
 				if (item.visible == false) item.visible = true;
 			}
 		}
@@ -661,8 +670,11 @@ package
 			resetCamera();
 		}
 		
-		private function viewerBasedTranslation(currentModel:Model, distanceX:Number, distanceY:Number):void
+		private function viewerBasedTranslation(currentContainer:ObjectContainer3D, distanceX:Number, distanceY:Number):void
 		{
+			trace("X change = " + distanceX);
+			trace("Y change = " + distanceY);
+			trace("Container = " + currentContainer.id);
 			
 		}
 		
